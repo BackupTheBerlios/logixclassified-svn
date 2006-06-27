@@ -1,0 +1,98 @@
+#################################################################################################
+#
+#  project              : Logix Classifieds
+#  filename             : INSTALL
+#  purpose              : INSTALLATION
+#$Id$
+#
+#################################################################################################
+
+
+Note: Please read the LICENSE file included in the distribution to get the license
+      this program is subject to.
+
+Intro:
+------
+Logix Classifieds is a multi purpose PHP script that allows you to run a fast, nice looking
+classified ad on your website in a very convenient way.
+
+
+Requires:
+- PHP 4.3.3 or higher
+- mySQL 4.0.23 or higher (may be compatible with MySQL 3.23 but we do not support such installations).
+- Apache Webserver (Developed on Apache2)
+This script is Developed and tested on Linux platforms including PHP 5 and MySQL 5
+
+Optional Modules require the following:
+
+- convert (http://www.imagemagick.org) if you want allow advanced picture handling
+- phpBB (http://www.phpbb.com) if you want a free phpForum
+
+
+Installation:
+-------------
+-) unzip the distribution file into your http documents directory
+-) ATTENTION - if you upload the files via FTP please upload the (3) library*.php files in BIN mode !
+-) edit config.php to your needs
+-) install Database
+    AUTO:
+    -) run Install/Update-Tool in your Browser
+    Filelocation: ./admin/setup.php (e.g.: http://www.domain.com/bazar/admin/setup.php)
+    MANUAL:
+    -) create the mysql database (usually Logix Classifieds) with mysqladmin.
+    mysqladmin  -u<your_mysql_user> -p<your_mysql_pass> create Logix Classifieds
+    -) create the mysql tables. you have 2 options :
+    1) COMMANDLINE: mysql -u<your_mysql_user> -p<your_mysql_pass> Logix Classifieds<./admin/Logix Classifieds.sql
+    2) PHPMYADMIN: run the SQL file './admin/Logix Classifieds.sql' to add the tables
+-) secure the admin-subdir !, with .htaccess
+-) check php.ini for this settings
+    register_globals        = On
+-) all should be ok at this point... Test it with your Browser
+
+Schedule Installation (optional)
+--------------------------------
+To ensure daily maintanance, e.g. sending CatNotify-Mails, you MUST setup a scheduled background-process on your server:
+
+-) be sure you have installed also the CGI-#$Id$of PHP
+-) create a new scheduled job:
+LINUX, UNIX:
+    edit /etc/crontab and insert a line like this (with correct path's):
+        0  * * *     root  /usr/local/bin/php /httpd/www/phpbazar/admin/schedule.php
+WINDOWS:
+    create a new at-job like this (cmd):
+    at 00:00 /EVERY:M,T,W,Th,F,S,Su cmd /c c:/php/php.exe c:\www\phpbazar\schedule.php
+
+ImageMagick Installation (optional)
+-----------------------------------
+-) get the Code at http://www.imagemagick.org
+-) compile the code
+-) test 'convert' with a testimage at commandline
+-) check '$convertpath' in config.php
+
+Forum Installation (optional)
+-----------------------------------
+-) get the forum-script
+-) Install as described in subdir ./forum
+-) check '$forum_database' in config.php is right (e.g. "Logix Classifieds_forum")
+-) NOW, every NEW confirmed Logix Classifieds-user is also a new forum-user ...
+-) For User-Update run ./admin/setup.php in your Browser and click [UPDATE DB of Forum]
+
+Customizing:
+------------
+-) edit variables.php in your language dir
+-) edit *.inc-Files in your language dir
+-) edit styles.css (optical settings like colors, fonts, ...)
+
+Administration:
+---------------
+-) Login to Logix Classifieds with Webmaster (default Password: 'changeme')
+   you can edit or delete Entries with the Moderator-Functions
+-) run the Admin-Panel, click [Admin-Panel] within LoginWindow (Statistics, Members, Categories, ...)
+
+Support:
+--------
+http://developer.berlios.de/support/?group_id=6916       Support requests
+http://developer.berlios.de/bugs/?group_id=6916          Bug Reports
+http://developer.berlios.de/forum/?group_id=6916         Forums
+http://developer.berlios.de/feature/?group_id=6916       Featuire Requests
+

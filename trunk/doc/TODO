@@ -1,0 +1,47 @@
+TODO
+$Id$
+----------- Pre-Release 0.9.0 -----------------------
+credits.html page needs to be developed for copyright and other notices.
+INSTALL doc needs to be re-written
+Installer/upgrade script needs to be written
+Coding Standards HTML page placed in docs directory
+Do ALL docs up in html in same style/layout also , interlinking them
+build the secure sql functions and class
+build the auth class
+build the session handler
+start breaking presentation out from code, and get it into templates
+
+(Decision point: Should we go with smarty template system, or should we brew our own light weight system?- Discuss in forum)
+
+(Descision Point- Should we make use of ADOdb? we could in the future support other databases such as postgres and oracle and mssql,
+ plus have well maintained and stable db functions and classes, despite the potential for load issues)
+
+IMPORTANT for discussion: This application *MUST* scale well to high traffic situations, theerfore the use of Smarty and ADOdb needs to be
+*very* carefully considered: We need to build several benchmarking functions that we can use for logging status at certain points,
+ page load time, memory usage, server load, etc. A Key point will also be database structure and query optimization.
+We have no solid data other than "hearsay" in regards to the performance of ADOdb and Smarty under high traffic situations, so we do need to get some idea of
+whether we want to implement these classes (high memory usage, but ease of implementation) or brew our own functions (reduced memory, less code overall,but
+higher maintenance cost/need on the part of developers. Based on this developer's experience with both Smarty and ADOdb, It would seem a good choice,
+but it is really untested in the type of high traffic situations that we wish to target.
+
+It is a given that we *WILL* be using some sort of templating system or other. We *MUST* separate php code from presentation logic,
+not only for developer sanity, but for end users to develop and design their own layouts, without breaking the code.
+
+All presentation will be W3C xhtml transitional compliant, as well as any other stuff such as css and javascript- validate *EVERYTHING*
+
+--------------END TODO for Pre-Release 0.9.0 ----------------------
+
+----------ONGOING TODO LIST ----------------
+find and eliminate un-necessary variables and redundant calls. (example, $HEADER and $FOOTER - these are better done in templates.)
+Clean up code and format to standards
+database structure needs to be converted to xml
+------------------END ONGOING-----------------------------------
+--------------FEATURE REQUESTS TO ADD -------------------------------
+Module for payment systems (securely) must be easily configured via admin panel
+Ability to enable "bidding system" for sales
+Member "levels" (E.G. Silver, Gold, Platinum)
+Web Stats, tracking, traffic trades are items to consider also.
+UPLOADS: These must be *LOCKED DOWN* . uploads directory must not be directly accessible, and must never be executable.
+there are a *lot* of holes in this existing code, and these must take top priority before first release.
+-------------END FREQ-----------------------------------------------
+

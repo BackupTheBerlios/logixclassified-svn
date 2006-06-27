@@ -1,0 +1,29 @@
+CHANGELOG
+$Id$
+
+------- Version 0.9.0 --------
+Hacked to work with register_globals = off
+changed files to prevent accessing directly.
+Changed admin panel menu to buttons rather than links
+Created admin includes and admin_functions.php
+Fixed Admin sections (from menu) for E_NOTICE and E_WARNING errors output
+Fixed Admin to be fully register_globals = off compatible.
+Moved some functions to the functions file, and started function for access control lists
+Added mutiple TODO and KLUDGE comments
+Created TODO, CHANGELOG and CREDITS documentation
+
+---BEGIN Logix Classifieds Changelog- Initial Notes ---
+Latest Changes at the top.
+Original Version 2.1.0 of phpBazar from smartisoft.com  office@smartisoft.com
+Taken under the GPL License, and forked to become Logix Classifieds on Monday, June 26, 2006
+Initial Version 0.9.0
+First Stable Release at 1.0.0
+Versioning information:
+3 parts-
+First number is the major release version, all versions with that number are drop in compatible with any other version
+of the same major revision
+Second number is the minor revision- incremented at any release point, and is a drop in replacement over the original code,
+with an update script
+Third number is the micro revision, incremented during Alpha, Beta and RC release points and patch releases.
+Finally, each file will have its own versioning information found in the $Id$ Subversion property.
+>>EOF
