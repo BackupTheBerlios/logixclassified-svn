@@ -1,0 +1,1962 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta name="Language" content="en">
+  <meta name="distribution" content="Global">
+  <meta name="Copyright"
+ content="modifications - PhpLogix &copy; 2004-2006 , original - phpBB Group &copy; 2002">
+  <meta name="Author"
+ content="modifications - PhpLogix , original - phpBB Group">
+  <title>Coding guidelines for PHPLogix Development Projects</title>
+  <meta http-equiv="Content-Style-Type" content="text/css">
+<!-- $Id$ -->
+  <link rel="stylesheet" href="./subSilver.css"
+ type="text/css">
+  <style type="text/css">
+<!--
+
+code {color:blue}
+pre {color:blue;font-size:9pt;}
+blockquote, li {font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10pt;}
+.small {font-size:8pt;}
+
+.good {color:green}
+.bad {color:red}
+
+-->
+  </style>
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(229, 229, 229);"
+ link="#006699" vlink="#5584aa">
+<a name="top"></a>
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td class="bodyline" bgcolor="#ffffff">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+        <tbody>
+          <tr>
+            <td width="100%"align="center" colspan="2"><a href="http://www.phplogix.com/">Return to PHPLogix home</a><br>
+            </td>
+
+          </tr>
+          <tr>
+            <td colspan="2">
+            <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="85%">
+
+              <tbody>
+                <tr>
+                  <td align="center"><span class="maintitle">Coding
+Guidelines for PHPLogix Projects</span><br>
+                  <span class="gensmall"></span><br>
+                  <br>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                  <P>
+<h1>Contents </h1>
+<ul>
+
+<li> <A HREF="#intro"> <B>Introduction</B> </A>
+<ul>
+<li> <A HREF="#important"> Standardization is Important </A>
+<li> <A HREF="#interp"> Interpretation </A>
+<li> <A HREF="#accept"> Accepting an Idea </A>
+<li><a href="#editor">Editor Settings</a></li>
+</ul>
+<li> <A HREF="#names"> <B>Names</B> </A>
+<ul>
+<li> <A HREF="#descriptive"> Make Names Fit </A>
+
+<li> <A HREF="#stacknames"> Variable Names</A>
+
+<li> <A HREF="#arrayelement"> Array Element</A>
+
+<li> <A HREF="#gnames"> Global Variables </A>
+<li> <A HREF="#gconstants"> Define Names and Global Constants </A>
+
+
+<li> <A HREF="#cnames"> Function Names </A>
+<li><a href="#naming">Naming Conventions</a></li>
+</ul>
+
+<li> <A NAME="docidx"> <B>Documentation </B> </A>
+<ul>
+<li> <A HREF="#comments"> Comments on Comments </A>
+<li> <A HREF="#cstas"> Comments Should Tell a Story </A>
+
+<li> <A HREF="#cdd"> Document Decisions </A>
+
+<li> <A HREF="#mge"> Make Gotchas Explicit </A>
+
+<li> <A HREF="#dirdoc"> Directory Documentation </A>
+
+</ul>
+
+<li> <B>Complexity Management</B>
+<ul>
+<li> <A HREF="#layering"> Layering </A>
+<li> <A HREF="#open"> Open/Closed Principle </A>
+</ul>
+
+
+<li> <B>Process</B>
+<ul>
+<li> <A HREF="#codereview"> Code Reviews </A>
+<li> <A HREF="#getsome"> Create a Source Code Control System Early and Not Often</A>
+<li> <A HREF="#bugs"> Create a Bug Tracking System Early and Not Often</A>
+
+<li> <A HREF="#resp"> Honor Responsibilities </A>
+</ul>
+
+<li> <B>Formatting</B>
+<ul>
+<li> <A HREF="#brace"> Brace <I>{}</I> Policy </A>
+<li><a href="#layout">Code Layout</a></li>
+<li> <A HREF="#indent"> Indentation/Tabs/Space Policy </A>
+<li> <A HREF="#parens"> Parens <I>()</I> with Key Words and Functions Policy </A>
+<li> <A HREF="#ifthen"> <I>If Then Else</I> Formatting </A>
+
+<li> <A HREF="#switch"> <I>switch</I> Formatting </A>
+<li> <A HREF="#goto"> Use of <I>continue,break</I> and <I>?:</I> </A>
+<li> <A HREF="#one"> One Statement Per Line </A>
+
+<li> <A HREF="#aligndecls"> Alignment of Declaration Blocks </A>
+</ul>
+
+<!-- Server configuration -->
+<li> <A HREF="#srvcfg"> <B> Server configuration</B> </A>
+<ul>
+    <li> <A HREF="#httpvars"> $_SERVER vars,Etc. </A>
+<li><a href="#environment">Development environment suggestions</a><br>
+    <li> <A HREF="#fext"> PHP File Extensions </A>
+</ul>
+<!-- /Server configuration -->
+
+
+<li> <A HREF="#misc"> <B> Miscellaneous</B> </A>
+<ul>
+<li> <A HREF="#htmlout"> HTML OUTPUT - IMPORTANT </A>
+<li> <A HREF="#alwaysbracket"> Always use braces </A>
+<li> <A HREF="#operands"> Operator Precedence </A>
+<li> <A HREF="#codetags"> PHP Code Tags </A>
+ <li><a href="#general">General Guidelines</a></li>
+<li> <A HREF="#nomagic"> No Magic Numbers </A>
+<li> <A HREF="#errorret"> Error Return Check Policy </A>
+<li> <A HREF="#nztest"> Do Not Default If Test to Non-Zero </A>
+<li> <A HREF="#boolean"> The Bull of Boolean Types </A>
+<li> <A HREF="#eassign"> Usually Avoid Embedded Assignments </A>
+<li><a href="#specifics">Specific Guidelines</a><br>
+<li> <A HREF="#reuse"> Reusing Your Hard Work and the Hard Work of Others</A>
+<li> <A HREF="#if0"> Use if (0) to Comment Out Code Blocks</A>
+</ul>
+
+</ul>
+
+<HR> <A NAME="intro"></A>
+<H1> Introduction </H1>
+
+<A NAME="important"></A>
+<H2> Standardization is Important </H2>
+
+It helps if the standard annoys everyone in some way so everyone
+feels they are on the same playing field. The proposal here
+has evolved over many projects, many companies, and literally
+a total of many weeks spent arguing. It is no particular person's style
+and is certainly open to local amendments.
+
+<H3> Good Points </H3>
+
+When a project tries to adhere to common standards a few
+good things happen:
+<UL>
+<LI> programmers can go into any code and figure out what's going on
+<LI> new people can get up to speed quickly
+  <LI> people new to PHP are spared the need to develop a personal style and defend
+    it to the death
+  <LI> people new to PHP are spared making the same mistakes over and over again
+  <LI> people make fewer mistakes in consistent environments
+
+<LI> programmers have a common enemy :-)
+</UL>
+
+
+<H3> Bad Points </H3>
+
+Now the bad:
+
+<UL>
+
+<LI> the standard is usually stupid because it's not what I do
+<LI> standards reduce creativity
+
+<LI> standards are unnecessary as long as people are consistent
+<LI> standards enforce too much structure
+<LI> people ignore standards anyway
+</UL>
+
+<H3> Discussion </H3>
+
+The experience of many projects leads to the conclusion that using
+coding standards makes the project go smoother. Are standards
+necessary for success? Of course not. But they help, and we need all the
+help we can get! Be honest, most arguments against a particular
+standard come from the ego. Few decisions in a reasonable standard really
+can be said to be technically deficient, just matters of taste.
+So be flexible, control the ego a bit, and remember any project
+is fundamentally a team effort.
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<A NAME="interp"></A>
+<H2> Interpretation </H2>
+
+<H3> Conventions </H3>
+The use of the word "shall" in this document requires that any project using
+this document must comply with the stated standard.
+<P>
+
+The use of the word "should" directs projects in tailoring a project-specific
+standard, in that the project must include, exclude, or tailor the requirement,
+as appropriate.
+<P>
+
+The use of the word "may" is similar to "should", in that it designates
+optional requirements.
+<P>
+
+<H3> Standards Enforcement </H3>
+
+First, any serious concerns about the standard should be brought
+up and worked out within the group. Maybe the standard is not
+quite appropriate for your situation. It may have overlooked
+important issues or maybe someone in power vehemently
+disagrees with certain issues :-)
+<P>
+
+In any case, once finalized hopefully people will play the adult and
+understand that this standard is reasonable, and has been found reasonable
+by many other programmers, and therefore is worthy of being followed
+even with personal reservations.
+<P>
+
+Failing willing cooperation it can be made a requirement that
+this standard must be followed to pass a code inspection.
+<P>
+
+Failing that the only solution is a massive tickling party on the
+offending party.
+<P><br><br><p><a href="code_standards.html#top">Top</a></p>
+
+<A NAME="accept"></A>
+<H2> Accepting an Idea </H2>
+
+<OL>
+<LI> It's impossible.
+<LI> Maybe it's possible, but it's weak and uninteresting.
+<LI> It is true and I told you so.
+<LI> I thought of it first.
+<LI> How could it be otherwise.
+</OL>
+
+If you come to objects with a negative preconception please
+keep an open mind. You may still conclude objects are bunk,
+but there's a road you must follow to accept something different.
+Allow yourself to travel it for a while.
+
+
+
+
+
+
+
+               <hr> <a name="editor"></a>
+                  <h3>1. Editor Settings</h3>
+
+                  <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="95%">
+                    <tbody>
+                      <tr>
+                        <td>
+                        <p><b>Tabs vs Spaces:</b>
+We prefer the consistent use of spaces - please do not use tabs.
+Copying
+and pasting from shell windows to other shell windows causes simple
+diffs to become complex when you use tabs. Convert all tabs to 4 spaces.<br>
+                        </p>
+                        <p><b>Linefeeds:</b> Ensure that
+your editor is saving files in the UNIX format. This means lines are
+terminated with a newline, not with a CR/LF combo as they are on Win32,
+or whatever the Mac uses. Any decent Win32 editor should be able to do
+this, but it might not always be the default. Know your editor.&nbsp;<br>
+
+                        </p>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+ <p><a href="code_standards.html#top">Top</a></p>
+
+<A NAME="names"></A>
+<H1> Names </H1>
+<br><br>
+<A NAME="descriptive"></A>
+<H2> Make Names Fit </H2>
+
+Names are the heart of programming. In the
+past people believed knowing someone's true name gave them magical
+power over that person. If you can think up the true name for something,
+you give yourself and the people coming after power over the code.
+Don't laugh!
+
+A name is the result of a long deep thought process about
+the ecology it lives in. Only a programmer who understands the system as a whole
+can create a name that "fits" with the system. If the name is appropriate
+everything fits together naturally, relationships are clear, meaning is derivable,
+and reasoning from common human expectations works as expected. <P>
+
+If you find all your names could be Thing and DoIt then you should probably
+revisit your design. <P>
+
+All names must be standard english words.<br><p>
+   Abbreviated words like get_loc_dev instead of get_local_device may be perfectly acceptable
+and understandable to native english speakers, but confusing and illogical to someone who is trying to "translate"
+   the idea or concept to their own language. Keep in mind if a word cannot be translated, it makes it ten times harder
+   for someone who works better in another language to understand the code.
+
+
+
+
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+<A NAME="arrayelement"></A>
+<H2> Array Element </H2>
+<p>
+
+
+Array element names follow the same rules as a variable.
+
+<UL>
+
+<LI> use '_' as the word separator.
+<LI> don't use '-' as the word separator
+</UL>
+
+<H3> Justification </H3>
+
+<UL>
+<LI> if '-' is used as a word separator it will generate warnings used with magic quotes.
+</UL>
+
+<H3> Example </H3>
+
+<p class = "good">
+$myarr['foo_bar'] = 'Hello';<br>
+print "$myarr[foo_bar] world"; // will output: Hello world
+</p>
+<p class = "bad">
+$myarr['foo-bar'] = 'Hello';<br>
+print "$myarr[foo-bar] world"; // warning message
+</p>
+
+
+<H3> Single or Double Quotes </H3>
+<UL>
+
+<p><b>Avoid double quotes:</b> Whenever
+possible, avoid using double quotes for strings that do not contain
+variables.<br>
+ONE caveat- when writing a SQL query, enclose the query in double quotes, <br>
+enclose VARIABLES used in the query within single quotes.
+when using ARRAY elements in SQL queries or other strings break them out of the double quotes and concatenate them.
+<p class = "bad">
+<br>$sql="SELECT * FROM table WHERE id = '$_POST['id']' ORDER BY id";<br>
+$sql='SELECT * FROM table WHERE id = '$_POST[id]' ORDER BY id';<br>
+The above queries will generate errors in many installations.<br>
+
+</p>
+<p class = "good"><br>
+$sql="SELECT * FROM table WHERE id = ".$_POST['id']." ORDER BY id";<br></p>
+                        </p>
+</UL>
+
+<H3> Justification </H3>
+
+<UL>
+<LI> Some PHP configurations will output warnings if arrays are used without quotes except when used within magic quotes
+</UL>
+
+<H3> Example </H3>
+<PRE>
+$myarr['foo_bar'] = 'Hello';
+$element_name = 'foo_bar';
+echo "$myarr[foo_bar] world"; // will output: Hello world
+echo "$myarr[$element_name] world"; // will output: Hello world
+echo "$myarr['$element_name'] world"; // parse error
+echo "$myarr["$element_name"] world"; // parse error.
+echo $myarr[foo_bar]." world"; // Notice it is not in quotes, generates E_NOTICE of "undefined constant foo_bar"-
+echo $myarr['foo_bar']." world";//same again, but element quoted properly- this is correct usage.
+</PRE>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+
+<HR>
+<A NAME="gnames"></A>
+<H2> Global Variables </H2>
+<UL>
+<LI> Global variables should be used as little as possible.</li>
+<li> Functions should NEVER set a variable to global scope. </li>
+</UL>
+
+<H3> Justification </H3>
+
+<UL>
+<LI>global variables can be security risks. if your code will not work with register_globals=off, you need to learn to code better.</li>
+</UL>
+
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+<A NAME="gconstants"></A>
+<H2> Define Names / Global Constants </H2>
+<UL>
+<LI> Global constants should be all caps with '_' separators.</li>
+<Li> Constants should be kept to a minimum where possible. Better to use plain variables</li>
+</UL>
+
+<H3> Justification </H3>
+
+It's tradition for global constants to named this way. You must be careful to
+not conflict with other predefined globals.<br>
+However, global constants can quickly become a headache unless they are explicitly defined all in one place
+Other programmers have been known to go nuts looking through 15 or 20  different files looking for the place a global constant is defined.
+<br> Any global constants must be defined in a single universal file, preferrably suffixed with a "_constants.php" suffix.
+<br>
+
+<H3> Example </H3>
+<PRE><br>define(&quot;A_GLOBAL_CONSTANT&quot;, &quot;Hello world!&quot;);
+</PRE>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<A NAME="cnames"></A>
+<H2> Function Names </H2>
+
+<UL>
+  <LI> For PHP functions use the C GNU convention of all lower case letters with
+    '_' as the word delimiter.
+</UL>
+
+<H3> Justification </H3>
+
+<UL>
+  <LI> It makes functions very different from any class related names.
+</UL>
+
+<H3> Example </H3>
+
+<PRE>function some_bloody_function()
+{
+    $variable = $code;
+}
+</PRE>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+
+                  <a name="naming"></a>
+                  <h3>2. Naming Conventions</h3>
+
+                  <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="95%">
+                    <tbody>
+                      <tr>
+                        <td>
+                        <p>We
+will not be using any form of hungarian notation in our naming
+conventions. Many of us believe that hungarian naming is one of the
+primary code obfuscation techniques currently in use. This means prefixing a variable with some identifier such as
+noted above in our requirement to use plain english names. Hungarian notation looks like this: <br>
+$g_constant = array();<br>
+$f_variable= "foo";<br>
+$a_name = "bar";<br>
+What, exactly do $g_ , $a_ and $f_ stand for?? who knows... ? use standard english, not abbreviations.<br>
+</p>
+                        <p><b>Variable Names:</b> Variable names should
+be in all lowercase, with words separated by an underscore, example:</p>
+                        <blockquote><code>$current_user</code> is
+right, but <code> $currentuser</code> and <code> $currentUser</code>
+
+are not. </blockquote>
+                        <p>Names
+should be descriptive, but concise. We don't want huge sentences as our
+variable names, but typing an extra couple of characters is always
+better than wondering what exactly a certain variable is for. </p>
+                        <p><b>Loop Indices:</b> The <i>only</i>
+situation where a one-character variable name is allowed is when it's
+the index for some looping construct. In this case, the index of the
+outer loop should always be $i. If there's a loop inside that loop, its
+index should be $j, followed by $k, and so on. If the loop is being
+indexed by some already-existing variable with a meaningful name, this
+guideline does not apply, example:</p>
+                        <blockquote>
+                          <pre>for ($i = 0; $i &lt; $outer_size; $i++)<br>{<br>   for ($j = 0; $j &lt; $inner_size; $j++)<br>   {<br>      foo($i, $j);<br>   }<br>}</pre>
+
+                        </blockquote>
+                        <p><b>Function Names:</b>
+Functions should also be named descriptively. We're not programming in
+C here, we don't want to write functions called things like
+"stristr()". Again, all lower-case names with words separated by a
+single underscore character. Function names should preferably have a
+verb in them somewhere. Good function names are <code>
+print_login_status()</code>, <code> get_user_data()</code>, etc. </p>
+                        <p><b>Function Arguments:</b> Arguments are
+subject to the same guidelines as variable names. We don't want a bunch
+of functions like: <code> do_stuff($a, $b, $c)</code>. In most cases,
+we'd like to be able to tell how to use a function by just looking at
+its declaration. <br /> Also, when similar functions use the same arguments, keep arguments in the same order. Example:
+<blockquote>
+                          <pre>
+                               function get_user_data($user_id,$session,$some_array,$db_object)
+                               {
+                                    $something = $do_stuff;
+                               }
+                               function check_user_level($session,$array,$user,$db)
+                               {
+                                    $something_else = $confusion;
+                               }</pre>
+
+</blockquote>
+In this sitation, two very similar functions using the same exact data have very different argument variable names *AND* are in different order
+This often leads to confusion because we may remember the function, but we dont recall the correct order of arguments.
+It would be better to do:
+<blockquote>              <pre>
+                               function get_user_data($user_id,$session,$some_array,$db_object)
+                               {
+                                    $something = $do_stuff;
+                               }
+                               function check_user_level($user_id,$session,$some_array,$db_object)
+                               {
+                                    $something_else = $ahh_much_better;
+                               }</pre>
+
+</blockquote>
+
+                        <p><b>Summary:</b>
+The basic philosophy here is to not hurt code clarity for the sake of
+laziness. This has to be balanced by a little bit of common sense,
+though; <code> print_login_status_for_a_given_user()</code> goes too
+far, for example -- that function would be better named <code>
+print_user_login_status()</code> , or just <code> print_login_status()</code>.
+                        </p>
+
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+       <br><br><p><a href="code_standards.html#top">Top</a></p>
+
+                  <HR>
+<A NAME="errorret"></A>
+
+<H1> Error Return Check Policy </H1>
+
+<UL>
+  <LI> Check every system call for an error return, unless you know you wish to
+    ignore errors.</li>
+  <LI> Include the system error text for every system error message.</li>
+  <li> ALL functions must return a value that can be checked outside of the function</li>
+  </UL>
+
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+<A NAME="brace"></A>
+<H1> Braces <I>{}</I> Policy </H1>
+
+Of the three major brace placement strategies only ONE is  acceptable,
+
+
+<UL>
+<p class="good">
+<LI> GOOD: Place brace under and inline with keywords:</li>
+<PRE>
+   if ($condition)       while ($condition)
+   {                     {
+      ...                   ...
+   }                     }
+</PRE>
+</p>
+<p class = "bad">
+BAD:  Traditional Unix policy of placing the initial brace on the
+     same line as the keyword and the trailing brace inline on its
+     own line with the keyword:
+<PRE>
+   if ($condition) {     while ($condition) {
+      ...                   ...
+   }                     }
+</PRE>
+</p>
+</UL>
+
+<H2> Justification </H2>
+
+<UL>
+<LI>
+
+     There are more reasons than psychological for preferring the first style.
+     If you use an editor (such as vi) that supports brace matching, the first
+     is a much better style.  Why?  Let's say you have a large block of code
+     and want to know where the block ends.  You move to the first brace hit
+     a key and the editor finds the matching brace.  Example:
+
+    <PRE>
+     if ($very_long_condition && $second_very_long_condition)
+     {
+        if(more_conditions == $variables)
+     <u>{</u>
+            while($loop = true)
+            {
+                $action = "a lot of code (100 lines or so)";
+            }
+            $Action = true;
+     <u>}</u>
+
+     }//you can also comment the end of a bracket to note what loop it is SUPPOSED to close.
+     else if (...)
+     {
+    ...
+     }
+
+</PRE>
+
+     To move from block to block you just need to use cursor down and your
+     brace matching key.  No need to move to the end of the line to match
+     a brace then jerk back and forth.
+
+</UL>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+<A NAME="indent"></A>
+<H1> Indentation/Tabs/Space Policy </H1>
+
+<UL>
+  <LI> Indent using 4 spaces for each level.
+  <LI> Do not use tabs, use spaces. Most editors can substitute spaces for tabs.
+  <LI> Indent as much as needed, but no more. There are no arbitrary rules as
+    to the maximum indenting level. If the indenting level is more than 4 or 5
+    levels you may think about factoring out code.
+
+</UL>
+
+<H2> Justification </H2>
+
+<UL>
+  <LI>When people using different tab settings the code is impossible to read or print,
+  which is why spaces are preferable to tabs.
+  <LI>Most PHP applications use 4 spaces.
+  <LI>Most editors use 4 spaces by defalt.
+  <LI>As much as people would like to limit the maximum indentation levels it never
+  seems to work in general. We'll trust that programmers will choose wisely how deep to nest code.
+</UL>
+
+<H2> Example </H2>
+
+<PRE>
+
+   function func()
+   {
+      if (something bad)
+      {
+         if (another thing bad)
+         {
+            while (more input)
+            {
+            }
+         }
+      }
+   }
+</PRE>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+<A NAME="parens"></A>
+<H1> Parens <I>()</I> with Key Words and Functions Policy </H1>
+
+<UL>
+
+<LI> Do not put parens next to keywords. Put a space between.
+<LI> Do put parens next to function names.
+<LI> Do not use parens in return statements when it's not necessary.
+</UL>
+
+<H2> Justification </H2>
+
+<UL>
+<LI> Keywords are not functions. By putting parens next to keywords
+     keywords and function names are made to look alike.
+<li> (it isnt always rigidly enforced, however.. )</li>
+</UL>
+
+<H2> Example </H2>
+<PRE>
+
+    if (condition)
+    {
+    }
+
+    while (condition)
+    {
+    }
+
+    strcmp($s, $s1);
+
+    return 1;
+</PRE>
+
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+
+<HR> <A NAME="reentrant"></A>
+<H1> Make Functions Reentrant </H1>
+
+Functions should not keep static variables that prevent a function from being
+reentrant. That is, variables that are used outside a function must be declared outside the function,
+variables used inside a function should not be identical to variables on the outside, UNLESS the variables are declared outside, and passed INTO the function, and returned.
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR>
+<A NAME="ifthen"></A>
+
+<H1> <I>If Then Else</I> Formatting </H1>
+
+<H2> Layout </H2>
+
+Should follow the following format.
+<PRE>
+   if (condition)                 // Comment
+   {
+   }
+   else if (condition)            // Comment
+   {
+   }
+   else                           // Comment
+   {
+   }
+</PRE>
+
+If you have <I>else if</I> statements then it is REQUIRED
+to always have an else block for finding unhandled cases. Maybe put a log
+message in the else even if there is no corrective action taken.
+
+<P>
+
+<H2> Condition Format </H2>
+
+It is good practice to put the constant on the left hand side of an equality/inequality
+comparison. For example:
+<P> if ( 6 == $errorNum ) ...
+<P> One reason is that if you leave out one of the = signs, the parser will find
+the error for you. A second reason is that it puts the value you are looking for
+right up front where you can find it instead of buried at the end of your expression.
+It takes a little time to get used to this format, but then it really gets useful.
+However, for the most part, this guideline is ignored because it disruptes the natural order of "thinking" the code.
+<P>
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="switch"></A>
+<H1> <I>switch</I> Formatting </H1>
+
+<UL>
+<LI> Falling through a case statement into the next case statement
+     shall be permitted as long as a comment is included.
+<LI> The <I>default</I> case should always be present and trigger
+     an error if it should not be reached, yet is reached.
+<LI> If you need to create variables put all the code in a block.
+</UL>
+
+<H2> Example </H2>
+<PRE>
+
+   switch (...)
+   {
+      case 1:
+         ...
+      // FALL THROUGH
+
+      case 2:
+      {
+         $v = get_week_number();
+         ...
+      }
+      break;
+
+      default:
+      {
+          trigger_error_message('error message');
+      }
+   }
+</PRE>
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="goto"></A>
+<H1> Use of <I>continue,break</I> and <I>?:</I> </H1>
+
+<H2> Continue and Break </H2>
+
+Continue and break are really disguised gotos so they are covered
+here.
+<P>
+
+Continue and break like goto should be used sparingly as they are magic in
+code. With a simple spell the reader is beamed to god knows where for
+some usually undocumented reason.
+<P>
+
+The two main problems with continue are:
+<UL>
+<LI> It may bypass the test condition
+<LI> It may bypass the increment/decrement expression
+</UL>
+<P>
+Consider the following example where both problems occur:
+
+<PRE>
+
+while (TRUE)
+{
+   ...
+   // A lot of code
+   ...
+   if (/* some condition */)
+   {
+      continue;
+   }
+   ...
+   // A lot of code
+   ...
+   if ( $i++ > STOP_VALUE) break;
+}
+</PRE>
+
+Note: "A lot of code" is necessary in order that the problem cannot be
+caught easily by the programmer.
+<P>
+
+From the above example, a further rule may be given:
+Mixing continue with break in the same loop is a sure way to disaster.
+<P>
+
+<H2> ?: </H2>
+
+The trouble is people usually try and stuff too much code
+in between the <I>?</I> and <I>:</I>. Here are a couple of
+clarity rules to follow:
+
+<UL>
+<LI> Put the condition in parens so as to set it off from other code
+<LI> If possible, the actions for the test should be simple functions.
+<LI> DO NOT use long conditions for this shorthand if/else format.
+</UL>
+
+<H3> Example </H3>
+<PRE>
+<p class="good">
+good: <br>
+   (condition) ? funct1() : func2();
+</p>
+<p class="bad">
+   BAD <br>
+
+   (condition)
+      ? long statement
+      : another long statement;
+      </p>
+ if you have long conditional statements use if/else formatting with braces.
+</PRE>
+
+<P>
+
+
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<P>
+<HR> <A NAME="one"></A>
+<H1> One Statement Per Line </H1>
+
+There should be only one statement per line unless the statements
+are very closely related.
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="shortmethods"></A>
+<H1> Short Methods </H1>
+
+<UL>
+<LI> Methods should limit themselves to a single page of code.
+</UL>
+
+<H3> Justification </H3>
+
+<UL>
+<LI>
+The idea is that the each method represents a technique for
+achieving a single objective.
+<LI>
+Most arguments of inefficiency turn out to be false in the long run.
+<LI>
+True function calls are slower than not, but there needs to a
+thought out decision (see premature optimization).
+
+</UL>
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="docnull"></A>
+<H1> Document Null Statements </H1>
+
+Always document a null body for a for or while statement so that it is clear
+that the null body is intentional and not missing code.
+<PRE><TT>
+   while ($dest++ = $src++)
+      ;         // VOID
+</TT></PRE>
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<A NAME="nztest"></A>
+<H1> Do Not Default If Test to Non-Zero </H1>
+
+Do not default the test for non-zero, i.e.
+<PRE><TT>
+   if (FAIL != f())
+</TT></PRE>
+
+is better than
+
+<PRE><TT>
+   if (f())
+</TT></PRE>
+even though FAIL may have the value 0 which PHP considers to be false. An explicit
+test will help you out later when somebody decides that a failure return should
+be -1 instead of 0. Explicit comparison should be used even if the comparison
+value will never change; e.g., <B>if (!($bufsize % strlen($str)))</B> should be
+written instead as <B>if (0 == ($bufsize % strlen($str)))</B> to reflect the numeric
+(not boolean) nature of the test. A frequent trouble spot is using strcmp to test
+for string equality, where the result should <EM> never</EM> <EM> ever</EM> be
+defaulted.
+
+<P> The non-zero test is often defaulted for predicates and other functions or
+expressions which meet the following restrictions:
+<UL>
+<LI> Returns 0 for false, nothing else.
+<LI> Is named so that the meaning of (say) a <B>true</B> return is absolutely
+     obvious. Call a predicate IsValid(), not CheckValid().
+</UL>
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="boolean"></A>
+<H1> The Bull of Boolean Types </H1>
+
+<P>
+
+Do not check a boolean value for equality with 1
+(TRUE, YES, etc.); instead test for inequality with 0 (FALSE, NO, etc.). Most
+functions are guaranteed to return 0 if false, but only non-zero if true. Thus,
+
+<PRE><TT>
+  <p class ="bad"> if (TRUE == func()) { ...</p>
+</TT></PRE>
+
+must be written
+
+<PRE><TT>
+   <p class = "good">if (FALSE != func()) { ...</p>
+</TT></PRE>
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<A NAME="eassign"></A>
+<H1> Usually Avoid Embedded Assignments </H1>
+
+There is a time and a place for embedded assignment statements. In some
+constructs there is no better way to accomplish the results without making the
+code bulkier and less readable.
+<P>
+
+<PRE><TT>
+   while ($a != ($c = getchar()))
+   {
+      process the character
+   }
+</TT></PRE>
+<P>
+
+The ++ and -- operators count as assignment statements. So, for many purposes,
+do functions with side effects. Using embedded assignment statements to
+improve run-time performance is also possible. However, one should consider
+the tradeoff between increased speed and decreased maintainability that results
+when embedded assignments are used in artificial places. For example,
+<PRE><TT>
+   $a = $b + $c;
+   $d = $a + $r;
+
+</TT></PRE>
+
+should <strong>not</strong> be replaced by
+
+<PRE><TT>
+   $d = ($a = $b + $c) + $r;
+</TT></PRE>
+
+even though the latter may save one cycle. In the long run the time difference
+between the two will decrease as the optimizer gains maturity, while the
+difference in ease of maintenance will increase as the human memory of what's
+going on in the latter piece of code begins to fade.
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="reuse"></A>
+<H1> Reusing Your Hard Work and the Hard Work of Others </H1>
+
+Reuse across projects is almost impossible without
+a common framework in place. Objects conform to the
+services available to them. Different projects
+have different service environments making object reuse
+difficult.
+
+<P>
+
+Developing a common framework takes a lot of up front
+design effort. When this effort is not made, for
+whatever reasons, there are several techniques
+one can use to encourage reuse:
+<P>
+
+<H2> Don't be Afraid of Small Libraries </H2>
+
+One common enemy of reuse is people not making
+libraries out of their code. A reusable class may be
+hiding in a program directory and will never have
+the thrill of being shared because the programmer
+won't factor the class or classes into a library.
+<P>
+
+One reason for this is because people don't like making small
+libraries. There's something about small libraries that
+doesn't feel right. Get over it. The computer doesn't care
+how many libraries you have.
+<P>
+
+If you have code that can be reused and can't be placed in an
+existing library then make a new library. Libraries don't stay
+small for long if people are really thinking about reuse.
+
+<P>
+
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+
+<HR>
+<A NAME="comments"></A>
+<H1> Comments on Comments </H1>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<A NAME="cstas"></A>
+<H2> Comments Should Tell a Story </H2>
+
+Consider your comments a story describing the system. Expect
+your comments to be extracted by a robot and formed into
+a man page. Class comments are one part of the story,
+method signature comments are another part of the story,
+method arguments another part, and method implementation
+yet another part. All these parts should weave together
+and inform someone else at another point of time just
+exactly what you did and why.
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<A NAME="cdd"></A>
+<H2> Document Decisions </H2>
+
+Comments should document decisions. At every point
+where you had a choice of what to do place a comment
+describing which choice you made and why. Archeologists
+will find this the most useful information.
+
+
+
+<H2> Comment Layout </H2>
+
+Each part of the project has a specific comment layout.
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<A NAME="mge"></A>
+<H2> Make Gotchas Explicit </H2>
+
+Explicitly comment variables changed out of the normal control
+flow or other code likely to break during maintenance. Embedded
+keywords are used to point out issues and potential problems. Consider a robot
+will parse your comments looking for keywords, stripping them out, and making
+a report so people can make a special effort where needed.
+<P>
+
+<H3> Gotcha Keywords </H3>
+
+<UL>
+<LI> <B>:TODO: topic</B><BR> Means there's more to do here, don't forget. <P>
+
+<LI> <B>:BUG: [bugid] topic</B><BR> means there's a
+     Known bug here, explain it and optionally give a bug ID. <P>
+
+<LI> <B>:KLUDGE:</B><BR> When you've done something ugly say so and explain
+     how you would do it differently next time if you had more time. <P>
+
+<LI> <B>:TRICKY:</B><BR> Tells somebody that the following code is very tricky
+     so don't go changing it without thinking. <P>
+
+<LI> <B>:WARNING:</B><BR> Beware of something. <P>
+
+<LI> <B>:PARSER:</B><BR>
+Sometimes you need to work around a parser problem. Document it. The problem
+may go away eventually.
+<P>
+
+<LI> <B>:ATTRIBUTE: value</B><BR> The general form of an attribute embedded in
+     a comment. You can make up your own attributes and they'll be
+     extracted. <P>
+
+</UL>
+<P>
+
+<H3> Gotcha Formatting </H3>
+
+<UL>
+<LI> Make the gotcha keyword the first symbol in the comment.
+<LI> Comments may consist of multiple lines, but the first line
+     should be a self-containing, meaningful summary.
+<LI> The writer's name and the date of the remark should be part
+     of the comment. This information is in the source repository, but
+     it can take a quite a while to find out when and by whom it was
+     added. Often gotchas stick around longer than they should.
+     Embedding date information allows other programmer to make this
+     decision. Embedding who information lets us know who to ask.
+</UL>
+
+
+<H3> Example </H3>
+<PRE>
+   // :TODO: tmh 960810: possible performance problem
+   // We should really use a hash table here but for now we'll
+   // use a linear search.
+
+   // :KLUDGE: tmh 960810: possible unsafe type cast
+   // We need a cast here to recover the derived type. It should
+   // probably use a virtual method or template.
+</PRE>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR> <A NAME="if0"></A>
+<H1> Use if (0) to Comment Out Code Blocks </H1>
+
+Sometimes large blocks of code need to be commented out for testing. The easiest
+way to do this is with an if (0) block:
+<PRE>
+   function example()
+   {
+      great looking code
+
+      if (0) {
+      lots of code
+      }
+
+      more code
+    }
+</PRE>
+<P> You can't use <B>/**/</B> style comments because comments can't contain comments
+and surely a large block of your code will contain a comment, won't it?<br>
+(if you comment out a large section of code that ALREADY has a */ comment block, your code will break)<br>
+sure you can use it for debugging, but IDEALLY, NO such comments will be present in ANY SVN commit.
+if you have to comment out a large block, remove the entire block before committing to SVN..
+(SVN takes care of versioning changes)
+
+Single line comments should use double-slashes (//).
+ Hashes (#) may ideally be used for comment TITLES and for large blocks
+ of "never to change" comments such as the file identification header
+ </p>
+
+
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<A NAME="dirdoc"></A>
+<H1> Directory Documentation </H1>
+
+Every directory should have a README file that covers:
+<UL>
+<LI> the purpose of the directory and what it contains
+
+<LI> a one line comment on each file. A comment can
+     usually be extracted from the NAME attribute of the
+     file header.
+<LI> cover build and install directions
+<LI> direct people to related resources:
+     <UL>
+     <LI> directories of source
+     <LI> online documentation
+     <LI> paper documentation
+     <LI> design documentation
+     </UL>
+
+<LI> anything else that might help someone
+</UL>
+
+Consider a new person coming in 6 months after every
+original person on a project has gone. That lone scared
+explorer should be able to piece together a picture of the
+whole project by traversing a source directory tree and
+reading README files, Makefiles, and source file headers.
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<!-- Server configuration -->
+<A NAME="srvcfg"></A>
+<H1> Server configuration </H1>
+
+This section contains some guidelines for PHP/Apache configuration.
+<P>
+<br><vr><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<!-- HTTP_*_VARS -->
+<A NAME="httpvars"> </A>
+<H1> $_SERVER, ,etc. </H1>
+
+Always use SPECIFIC declarations of a variable. <br>
+If you expect $myvar from POST data, specify it as $_POST['myvar'];<br>
+
+Never just ASSUME you are getting $myvar from post data (somebody could just pass it in the URL as a $_GET)<br>
+
+The only exception is when declaring a variable global, in which case, instead of:<br>
+<p class ="bad">$_GLOBALS['myvar'];</p>
+<br>
+use:
+<br>
+<p class="good">global $myvar;</p>
+<br>
+
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<!-- /HTTP_*_VARS -->
+
+<!-- PHP File Extensions -->
+<A NAME="fext"> </A>
+<H1> PHP File Extensions </H1>
+
+There is lots of different extension variants on PHP files (.html, .php, .php3, .php4,
+.phtml, .inc, .class...). <br>
+<ul>
+    <li>Always use the extension .php.
+    <li>Always use the extension .php for your class and function libraries.
+</ul>
+
+<h2>Justification </h2>
+<ul>
+  <li>The use of .php makes it possible to enable caching on other files than .php.
+  <li>The use of .inc or .class can be a security problem. On most servers these extensions aren't set
+  to be run by a parser. If these are accessed they will be displayed in clear text.
+</ul>
+<P>
+<HR>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<!-- /PHP File Extensions -->
+
+<!-- Server configuration -->
+
+<A NAME="misc"></A>
+<H1> Miscellaneous </H1>
+
+This section contains some miscellaneous do's and don'ts.
+<P>
+
+<UL>
+<LI> Don't use floating-point variables where discrete values are needed. Using
+a float for a loop counter is a great way to shoot yourself in the foot. Always
+test floating-point numbers as &lt;= or &gt;=, never use an exact comparison (==
+or !=).
+
+<P>
+<LI> Do not rely on automatic beautifiers. The main person who benefits from good
+program style is the programmer him/herself, and especially in the early design
+of handwritten algorithms or pseudo-code. Automatic beautifiers can only be applied
+to complete, syntactically correct programs and hence are not available when the
+need for attention to white space and indentation is greatest. Programmers can
+do a better job of making clear the complete visual layout of a function or file,
+with the normal attention to detail of a careful programmer (in other words, some
+of the visual layout is dictated by intent rather than syntax and beautifiers
+cannot read minds). Sloppy programmers should learn to be careful programmers
+instead of relying on a beautifier to make their code readable. Finally, since
+beautifiers are non-trivial programs that must parse the source, a sophisticated
+beautifier is not worth the benefits gained by such a program. Beautifiers are
+best for gross formatting of machine-generated code.
+<P>
+<LI> Accidental omission of the second ``='' of the logical compare is a problem.
+The following is confusing and prone to error.
+<PRE>
+        if ($abool= $bbool) { ... }
+     </PRE>
+Does the programmer really mean assignment here? Often yes, but usually no. The
+solution is to just not do it, an inverse Nike philosophy. Instead use explicit
+tests and avoid assignment with an implicit test. The recommended form is to do
+the assignment before doing the test:
+<PRE><TT>
+       $abool= $bbool;
+       if ($abool) { ... }
+    </TT></PRE>
+</UL>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+
+<HR>
+
+
+
+
+<A NAME="layering"></A>
+
+<H1> Layering </H1>
+
+Layering is the primary technique for reducing complexity in
+a system. A system should be divided into layers. Layers
+should communicate between adjacent layers using well defined
+interfaces. When a layer uses a non-adjacent layer then a
+layering violation has occurred.
+<P>
+
+A layering violation simply means we have dependency between
+layers that is not controlled by a well defined interface.
+When one of the layers changes code could break. We don't
+want code to break so we want layers to work only with
+other adjacent layers.
+<P>
+
+Sometimes we need to jump layers for performance reasons.
+This is fine, but we should know we are doing it and document
+appropriately.
+
+<P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+<HR>
+<A NAME="codereview"></A>
+<H1> Code Reviews </H1>
+
+If you can make a formal code review work then my hat is off
+to you. Code reviews can be very useful. Unfortunately they
+often degrade into nit picking sessions and endless arguments
+about silly things. They also tend to take a lot of people's
+time for a questionable payback.
+<P>
+
+My god he's questioning code reviews, he's not an engineer!
+<P>
+
+Not really, it's the form of code reviews and how they fit into
+normally late chaotic projects is what is being questioned.
+<P>
+
+First, code reviews are <B>way too late</B> to do much of
+anything useful. What needs reviewing are requirements and
+design. This is where you will get more bang for the buck.
+<P>
+
+Get all relevant people in a room. Lock them in. Go over the class design
+and requirements until the former is good and the latter is being met.
+Having all the relevant people in the room makes this process
+a deep fruitful one as questions can be immediately answered and
+issues immediately explored. Usually only a couple of such meetings
+are necessary.
+
+<P>
+
+If the above process is done well coding will take
+care of itself. If you find problems in the code
+review the best you can usually do is a rewrite after someone has sunk
+a ton of time and effort into making the code "work."
+<P>
+
+You will still want to do a code review, just do it offline. Have a
+couple people you trust read the code in question and simply make
+comments to the programmer. Then the programmer and reviewers
+can discuss issues and work them out. Email and quick pointed
+discussions work well. This approach meets the goals
+and doesn't take the time of 6 people to do it. <P>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+
+<HR>
+<A NAME="getsome"></A>
+<H1> Create a Source Code Control System Early and Not Often </H1>
+
+A common build system and source code control system should be put in place
+as early as possible in a project's lifecycle, preferably before anyone starts
+coding. Source code control is the structural glue binding a project together.
+If programmers can't easily use each other's products then you'll never be
+able to make a good reproducible build and people will piss away a lot of time.
+It's also hell converting rogue build environments to a standard system.
+But it seems the right of passage for every project to build their own custom
+environment that never quite works right. <P>
+
+Some issues to keep in mind:
+<UL>
+
+
+<LI> Make simple things simple. It should be dead simple and well documented on
+how to:
+<UL>
+
+
+<LI> how to change files
+<LI> how to add new modules into the system
+<LI> how to delete modules and files
+<LI> how to check in changes
+<LI> what are the available libraries and include files
+<LI> how to get the build environment including all compilers and other tools
+</UL>
+<P> Make a web page or document or whatever. New programmers shouldn't have to
+go around begging for build secrets from the old timers.
+
+<LI> On checkins log comments should be useful. These comments should be collected
+every night and sent to interested parties.
+</UL>
+<br><br><p><a href="code_standards.html#top">Top</a></p>
+
+
+<HR>
+<A NAME="bugs"></A>
+
+<H1> Create a Bug Tracking System Early and Not Often </H1>
+
+The earlier people get used to using a bug tracking system the better. If you
+are 3/4 through a project and then install a bug tracking system it won't
+be used. You need to install a bug tracking system early so people will use it. <P>
+
+Programmers generally resist bug tracking, yet when used correctly it
+can really help a project:
+<UL>
+<LI> Problems aren't dropped on the floor.
+<LI> Problems are automatically routed to responsible individuals.
+<LI> The lifecycle of a problem is tracked so people can argue
+     back and forth with good information.
+<LI> Managers can make the big schedule and staffing decisions based on
+     the number of and types of bugs in the system.
+
+<LI> Configuration management has a hope of matching patches back to the problems they fix.
+<LI> QA and technical support have a communication medium with developers.
+</UL>
+
+Not sexy things, just good solid project improvements.
+<P>
+
+Source code control should be linked to the bug tracking system. During the part
+of a project where source is frozen before a release only checkins accompanied
+by a valid bug ID should be accepted. And when code is changed to fix a bug
+the bug ID should be included in the checkin comments. <P>
+
+We do have/will have an effective bugtracker system IN PLACE, and one is being modified
+ for in-game bug reports to be sent out to bugtracker, so we will have ALL bugs documented and numbered.
+
+ <br><br>
+ <p><a href="code_standards.html#top">Top</a></p>
+
+<HR><A NAME="resp"></A>
+<H1> Honor Responsibilities </H1>
+
+Responsibility for software modules is scoped. Modules are either the responsibility of a
+particular person or are common. Honor this division of responsibility. Don't
+go changing things that aren't your responsibility to change. Only mistakes
+and hard feelings will result. <P>
+
+Face it, if you don't own a piece of code you can't possibly be in a position to
+change it. There's too much context. Assumptions seemingly reasonable to you
+may be totally wrong. If you need a change simply ask the responsible person
+to change it. Or ask them if it is OK to make such-n-such a change. If they say OK
+then go ahead, otherwise holster your editor. <P>
+
+Every rule has exceptions. If it's 3 in the morning and you need to make a change
+to make a deliverable then you have to do it. If someone is on vacation and no one
+has been assigned their module then you have to do it. If you make changes in other
+people's code try and use the same style they have adopted. <P>
+
+Programmers need to mark with comments code that is particularly sensitive to
+change. If code in one area requires changes to code in an another area then
+say so. If changing data formats will cause conflicts with persistent stores
+or remote message sending then say so. If you are trying to minimize memory
+usage or achieve some other end then say so. Not everyone is as brilliant as you. <P>
+
+The worst sin is to flit through the system changing bits of code to match your
+coding style. If someone isn't coding to the standards then ask them or ask
+your manager to ask them to code to the standards. Use common courtesy. <P>
+
+Code with common responsibility should be treated with care. Resist making radical
+changes as the conflicts will be hard to resolve. Put comments in the file on how
+the file should be extended so everyone will follow the same rules. Try and use
+a common structure in all common files so people don't have to guess on where
+to find things and how to make changes. Checkin changes as soon as possible so
+conflicts don't build up. <P>
+
+As an aside, module responsibilities must also be assigned for bug tracking purposes.
+
+<br><br>
+<p><a href="code_standards.html#top">Top</a></p>
+<HR>
+
+<A NAME="codetags"></A>
+<H1> PHP Code Tags </H1>
+
+PHP Tags are used for delimit PHP from html in a file. There are serval ways to do this.
+&lt;?php ?&gt;, and &lt;?=$name?&gt;.
+
+
+<UL>
+    <LI> Use &lt?php ?&gt;
+</UL>
+<P>
+
+<H3> Justification </H3>
+<UL>
+    <LI> &lt?php ?&gt; is always avaliable in any system and setup.
+
+</UL>
+
+
+<H3> Example </H3>
+<PRE>
+<p class="good">
+&lt?php print "Hello world"; ?&gt // Will print "Hello world"
+</p>
+<p class="bad">
+&lt? print "Hello world"; ?&gt // Will print "Hello world"
+
+&lt% print "Hello world"; %&gt // Will print "Hello world"
+
+&lt?=$street?&gt // Will print the value of the variable $street
+</p>
+</PRE>
+<p><a href="code_standards.html#top">Top</a></p>
+
+<HR>
+
+<A NAME="nomagic"></A>
+<H1> No Magic Numbers </H1>
+<p><b>Magic numbers:</b> Don't use them. Use
+named constants for any literal value other than obvious special cases.
+Basically, it's OK to check if an array has 0 elements by using the
+literal 0. It's not OK to assign some special meaning to a number and
+then use it everywhere as a literal. This hurts readability AND
+maintainability. Included in this guideline is that we should be using
+the constants TRUE and FALSE in place of the literals 1 and 0 -- even
+though they have the same values, it's more obvious what the actual
+logic is when you use the named constants. </p>
+
+A magic number is a bare-naked number used in source code. It's magic
+because no-one has a clue what it means including the author inside
+3 months. For example: <P>
+
+<PRE>
+if      (22 == $foo) { start_thermo_nuclear_war(); }
+else if (19 == $foo) { refund_lotso_money(); }
+else if (16 == $foo) { infinite_loop(); }
+else                 { cry_cause_im_lost(); }
+</PRE>
+
+In the above example what do 22 and 19 mean? If there was a number change or the
+numbers were just plain wrong how would you know? <P>
+
+Heavy use of magic numbers marks a programmer as an amateur
+more than anything else. Such a programmer has never worked in a team
+environment or has had to maintain code or they would never do such
+a thing.
+<P> Instead of magic numbers use a real name that means something. You should
+use define(). For example:
+<PRE>
+define("PRESIDENT_WENT_CRAZY", "22");
+define("WE_GOOFED", "19");
+define("THEY_DIDNT_PAY", "16");
+
+if      (PRESIDENT_WENT_CRAZY == $foo) { start_thermo_nuclear_war(); }
+else if (WE_GOOFED            == $foo) { refund_lotso_money(); }
+else if (THEY_DIDNT_PAY       == $foo) { infinite_loop(); }
+else                                   { happy_days_i_know_why_im_here(); }
+</PRE>
+
+Now isn't that better?
+<P>
+<p><a href="code_standards.html#top">Top</a></p>
+<hr>
+                  <a name="layout"></a>
+                  <h3>3. Code Layout</h3>
+                  <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="95%">
+                    <tbody>
+
+                      <tr>
+                        <td>
+                        <p><b>Standard header for new files:</b> Here a
+template of the header that must be included at the start of all PhpLogix Projects
+files: </p>
+                        <blockquote>
+                          <pre><span
+ style="font-family: verdana,arial,helvetica,sans-serif;">
+ <pre>
+##############################################################################################
+#                                                                                            #
+#                                FILENAME.php                                                #
+# *                            -------------------                                           #
+# *   begin                : Friday, April 23, 2004                                          #
+# *   copyright            : (C) 2004-2005  [Project Name here] Development Team             #
+# *   email                : support@project-domain.com                                      #
+# *   VERSION:             : $id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
+</pre><br></span><br> </pre>
+
+                        </blockquote>
+ <a name="htmlout">HTML OUTPUT</a>
+ <br>
+ <h3><u>NEVER output HTML directly from the php files!</u></h3>
+ <br>
+ This is what Smarty Template engine is for. We use it, all code shall conform to this requirement.
+ All HTML output shall be done in Smarty. The use of "echo" in a php file is forbidden except for purposes of debugging.
+ Learn Smarty templates, IF you dont know how to output something, as a team mate. <Br>
+ On a related note: Smarty Templates should <b><u><i> NEVER </i></u></b> contain anything but display logic. This means, under no circumstances
+ should ant smarty template break out of the template to process php code. <br>
+  <p><a href="code_standards.html#top">Top</a></p>
+              <a name="alwaysbracket"><p><b>Always include the braces:</b></a>
+This is another case of being too lazy to type 2 extra characters
+causing problems with code clarity. Even if the body of some construct
+is only one line long, do <i>not</i> drop the braces. Just don't,
+examples:</p>
+                        <p class="bad">// These are all wrong.<br>
+                        </p>
+                        <blockquote>
+
+                          <pre>if (condition) do_stuff();<br><br>if (condition)<br> do_stuff();<br><br>while (condition)<br>    do_stuff();<br><br>for ($i = 0; $i &lt; size; $i++)<br> do_stuff($i);</pre>
+                        </blockquote>
+                        <p class="good">// These are all right.<br>
+
+                        </p>
+                        <blockquote>
+                          <pre>if (condition)<br>{<br>  do_stuff();<br>}<br><br>while (condition) <br>{<br> do_stuff();<br>}<br><br>for ($i = 0; $i &lt; size; $i++) <br>{<br>  do_stuff();<br>}</pre>
+
+                        </blockquote>
+                        <p><b>Where to put the braces:</b>
+This one is a bit of a holy war, but we're going to use a style that
+can be summed up in one sentence: Braces always go on their own line.
+The closing brace should also always be at the same column as the
+corresponding opening brace, examples:</p>
+                        <blockquote>
+                          <pre>if (condition) <br>{<br> while (condition2)<br>  {<br>       ...<br> }<br>}<br>else <br>{<br>    ...<br>}<br><br>for ($i = 0; $i &lt; $size; $i++) <br>{<br> ...<br>}<br>        <br>while (condition) <br>{<br> ...<br>}<br>        <br>function do_stuff() <br>{<br>   ...<br>}</pre>
+
+                        </blockquote>
+                        <p><b>Use spaces between tokens:</b>
+This is another simple, easy step that helps keep code readable without
+much effort. Whenever you write an assignment, expression, etc.. Always
+leave <i>one</i> space between the tokens. Basically, write code as if
+it was English. Put spaces between variable names and operators. Don't
+put spaces just after an opening bracket or before a closing bracket.
+Don't put spaces just before a comma or a semicolon. This is best shown
+with a few examples, examples:</p>
+                        <p>// Each pair shows the wrong way followed by
+the right way.<br>
+                        </p>
+                        <blockquote>
+
+                          <pre>$i=0;<br>$i = 0;<br>     <br>if($i&lt;7) ...<br>if ($i &lt; 7) ...<br>       <br>if ( ($i &lt; 7)&amp;&amp;($j &gt; 8) ) ...<br>if (($i &lt; 7) &amp;&amp; ($j &gt; 8)) ...<br>      <br>do_stuff( $i, "foo", $b );<br>do_stuff($i, "foo", $b);<br>      <br>for($i=0; $i&lt;$size; $i++) ...<br>for($i = 0; $i &lt; $size; $i++) ... <br>       <br>$i=($j &lt; $size)?0:1;<br>$i = ($j &lt; $size) ? 0 : 1;</pre>
+
+                        </blockquote>
+       <a name="operands"><p><b>Operator precedence:</b>
+Do you know the exact precedence of all the operators in PHP? Neither
+do I. (My Dear Aunt Sally is the norm, but there are exceptions) Don't guess. Always make it obvious by using brackets to force
+the precedence of an equation so you know what it does, examples:</p>
+                        <p class="bad">// what's the result? who knows.<br>
+                        </p>
+                        <blockquote>
+                          <pre>$bool = ($i &lt; 7 &amp;&amp; $j &gt; 8 || $k == 4);</pre>
+
+                        </blockquote>
+                        <p class="good">// now you can be certain what
+I'm doing here.<br>
+                        </p>
+                        <blockquote>
+                          <pre>$bool = (($i &lt; 7) &amp;&amp; (($j &lt; 8) || ($k == 4)))</pre>
+
+                        </blockquote>
+
+                        <p><a href="#top">Top</a></p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a name="general"></a>
+                  <h3>4. General Guidelines</h3>
+
+                  <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="95%">
+                    <tbody>
+                      <tr>
+                        <td>
+                        <p><b>Quoting strings:</b>
+There are two different ways to quote strings in PHP - either with
+single quotes or with double quotes. The main difference is that the
+parser does variable interpolation in double-quoted strings, but not in
+single quoted strings. Because of this, you should <i>always</i> use
+single quotes <i>unless</i>
+
+you specifically need variable interpolation to be done on that string.
+This way, we can save the parser the trouble of parsing a bunch of
+strings where no interpolation needs to be done.</p>
+                        <p>Also,
+if you are using a string variable as part of a function call, you do
+not need to enclose that variable in quotes. Again, this will just make
+unnecessary work for the parser. Note, however, that nearly all of the
+escape sequences that exist for double-quoted strings will not work
+with single-quoted strings. Be careful, and feel free to break this
+guideline if it's making your code harder to read, examples:</p>
+                        <p class="bad">// wrong<br>
+                        </p>
+                        <blockquote>
+                          <pre>$str = "This is a really long string with no variables<br>for the parser to find.";<br><br>do_stuff("$str");</pre>
+
+                        </blockquote>
+                        <p class="good">// right<br>
+                        </p>
+                        <blockquote>
+                          <pre>$str = 'This is a really long string with no variables<br>for the parser to find.';<br><br>do_stuff($str);</pre>
+                        </blockquote>
+                        <p><b>Associative array keys:</b>
+
+In PHP, it's legal to use a literal string as a key to an associative
+array without quoting that string. We don't want to do this -- the
+string should always be quoted to avoid confusion. Note that this is
+only when we're using a literal, not when we're using a variable,
+examples:</p>
+                        <p class="bad">// wrong<br>
+                        </p>
+                        <blockquote>
+                          <pre>$foo = $assoc_array[blah];</pre>
+                        </blockquote>
+                        <p class="good">// right<br>
+
+                        </p>
+                        <blockquote>
+                          <pre>$foo = $assoc_array['blah'];</pre>
+                        </blockquote>
+                        <p><b>Comments:</b>
+We intend for future versions to have a much higher level of commenting
+than we currently have (very little). Each function should be preceded
+by a comment that tells a programmer
+everything they need to know to use that function. The meaning of every
+parameter, the expected input, and the output are required as a minimal
+comment. The function's behaviour in error conditions (and what those
+error conditions are) should also be present. Nobody should have to
+look at the actual source of a function in order to be able to call it
+with confidence in their own code. <br>
+                        <br>
+In addition, commenting any
+tricky, obscure, or otherwise not-immediately-obvious code is clearly
+something we should be doing. Especially important to document are any
+assumptions your code makes, or preconditions for its proper operation.
+Any one of the developers should be able to look at any part of the
+application and figure out what's going on in a reasonable amount of
+time. <br>
+
+                        <br>
+
+
+                        <p><b>Shortcut operators:</b>
+The only shortcut operators that cause readability problems are the
+shortcut increment ($i++) and decrement ($j--) operators. These
+operators should not be used as part of an expression. They can,
+however, be used on their own line. Using them in expressions is just
+not worth the headaches when debugging, examples:</p>
+                        <p class="bad">// wrong<br>
+
+                        </p>
+                        <blockquote>
+                          <pre>$array[++$i] = $j;<br>$array[$i++] = $k;</pre>
+                        </blockquote>
+                        <p class="good">// right<br>
+                        </p>
+                        <blockquote>
+
+                          <pre>$i++;<br>$array[$i] = $j;<br><br>$array[$i] = $k;<br>$i++;</pre>
+                        </blockquote>
+                        <p><b>Inline conditionals:</b>
+Inline conditionals should never be used if it can be avoided - only
+use them to do assignments, and not for
+function calls or anything complex at all. They can be harmful to
+readability if used incorrectly, so don't fall in love with saving
+typing by using them, examples:</p>
+                        <p class="bad">// Bad place to use them</p>
+                        <blockquote>
+
+                          <pre>(($i &lt; $size) &amp;&amp; ($j &gt; $size)) ? do_stuff($foo) : do_stuff($bar);</pre>
+                        </blockquote>
+                        <p class="good">// OK place to use them<br>
+                        </p>
+                        <blockquote>
+
+                          <pre>$min = ($i &lt; $j) ? $i : $j;</pre>
+                        </blockquote>
+                        <p><b>Don't use uninitialized variables:</b>
+For future versions, we intend to use the highest level of run-time
+error
+reporting. This will mean that the use of an uninitialized variable
+will be reported as an error. This will come up most often when
+checking which HTML form variables were passed. These errors can be
+avoided by using the built-in empty() function to check whether a
+variable has been set, examples:</p>
+                        <p class="bad">// Old way<br>
+                        </p>
+
+                        <blockquote>
+                          <pre>if ($forum) ...</pre>
+                        </blockquote>
+                        <p class="good">// New way<br>
+                        </p>
+                        <blockquote>
+                          <pre>if (!empty($forum)) ...</pre>
+
+                        </blockquote>
+                        <p><a href="#top">Top</a></p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a name="specifics"></a>
+                  <h3>5. Specific guidelines<br>
+
+                  </h3>
+                  <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="95%">
+                    <tbody>
+                      <tr>
+                        <td>
+                        <p><b>Optimal loops:</b> Always calculate the
+length of a loop OUTSIDE/in advance of the loop itself:<br>
+                        </p>
+
+                        <p class="bad">// Wrong way<br>
+                        </p>
+                        <blockquote>
+                          <pre>for ($i=0; $i&lt;sizeof($x); $i++)</pre>
+                        </blockquote>
+                        <p class="good">// Right way<br>
+                        </p>
+
+                        <blockquote>
+                          <pre>$size = sizeof($x);<br>for ($i=0; $i&lt;$size; $i++)</pre>
+                        </blockquote>
+
+                        <p><b>Avoid is_array:</b> Whenever possible,
+avoid using is_array when you could use isset() or empty() instead.<br>
+
+                        </p>
+                        <p><b>Use the fastest string replacement
+functions:</b> For searching
+for substrings, the fastest code is using strpos(), followed by
+preg_match() and lastly ereg(). Similarly, str_replace() is faster than
+preg_replace(), which is faster than ereg_replace().<br>
+                        </p>
+                        <p><b>Unset large arrays:</b> While PHP handles
+memory management well, any time you create an array over 10 elements,
+unset the array after use.<br>
+                        </p>
+                        <p><b>Minimize global variables:</b> We don't
+want functions with 10+ variables to call it, but we do want to
+reduce the number of global-scope variables when possible. All
+functions that need access to the db should pass $dblink and/or $dbtables as
+the first two parameters.<br>
+
+                        </p>
+                        <p><b>Echo v. Print:</b> No, its not faster. We
+don't care - please avoid using print(), sprintf(), and similar print
+family members when possible.</p>
+                        <p><a href="code_standards.html#top">Top</a></p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <a name="editor"></a>
+                  <h3>6. Development environment settings<br>
+                  </h3>
+                  <table align="center" border="0" cellpadding="0"
+ cellspacing="0" width="95%">
+                    <tbody>
+                      <tr>
+                        <td>
+
+
+
+                        <p><b>Error reporting level:</b> Please code
+with your php.ini error reporting level set to error_reporting&nbsp;
+=&nbsp; E_ALL. Ensure that all code you submit is <b>warning free.</b><br>
+                        </p>
+                        <p><a href="code_standards.html#top">Top</a></p>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div align="center">
+                  <hr>
+                  </div>
+                  <br>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -50,7 +50,7 @@ session_start();
 //numerous sql injection points also in all files- should have a safe_query wrapper, mimicing BIND variables,
 //and lastly - search function and method - trivially explooitable for sql injection. should never allow queries to be passed in GET
 //in fact, all form submits should be converted to method="post" and eliminate GET method as much as possible.
-if ($_COOKIE['PHPSESSID'] && empty($_SESSION['suserid'])) {  // if lost session
+if (!empty($_COOKIE['PHPSESSID']) && empty($_SESSION['suserid'])) {  // if lost session
     $query = mysql_query("SELECT id,userid FROM ".$prefix."sessions WHERE id='$_COOKIE[PHPSESSID]' AND expirestamp>'$timestamp'");
     $session = mysql_fetch_array($query);
     if ($session['id']) { setsessionvar($session['userid']); }
@@ -855,7 +855,7 @@ function ico_info($value,$align="left") {
 function sidstr () {
     global $PHPSESSID;
 
-    if ($_COOKIE['PHPSESSID'] || !$PHPSESSID) {
+    if (!empty($_COOKIE['PHPSESSID']) || !$PHPSESSID) {
         return "";
     } else {
     return "PHPSESSID=$PHPSESSID&";

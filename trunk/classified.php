@@ -1,13 +1,30 @@
-<?
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : classified.php
-#  last modified by     :
-#  e-mail               : support@phplogix.com
-#  purpose              : Classified Area
-#
-#################################################################################################
+<?php
+ ##############################################################################################
+#                                                                                            #
+#                                   classified.php                                                #
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
+
 
 #  Include Configs & Variables
 #################################################################################################
@@ -42,10 +59,16 @@ echo"       <tr>\n";
 echo"        <td class=\"class2\">\n";
 
 
-if ((!$_SESSION[suserid] && !$bazarfreeread) || (!$_SESSION[suserid] && $choice=="notify" || !$_SESSION[suserid] && $editadid || !$_SESSION[suserid] && $choice=="add" || !$_SESSION[suserid] && $choice=="my" || !$_SESSION[suserid] && $choice=="fav")) {
+if ((empty($_SESSION['suserid']) && !$bazarfreeread) || (empty($_SESSION['suserid']) && $choice=="notify" || empty($_SESSION['suserid']) && $editadid || empty($_SESSION['suserid']) && $choice=="add" || empty($_SESSION['suserid']) && $choice=="my" || empty($_SESSION['suserid']) && $choice=="fav"))
+{
     include ("$language_dir/nologin.inc");
-} else {
-    if ($force_addad && $HTTP_COOKIE_VARS["ForceAddAd"]==1){$choice="add";$editadid="";}
+}
+else
+{
+    if ($force_addad && $_COOKIE['ForceAddAd']==1)
+    {
+        $choice="add";$editadid="";
+    }
 
     if ($choice=="add" || $editadid) {
         echo"           <table align=\"center\" width=\"100%\">\n";
@@ -67,7 +90,7 @@ if ((!$_SESSION[suserid] && !$bazarfreeread) || (!$_SESSION[suserid] && $choice=
         echo"             </td>\n";
         echo"            </tr>\n";
         echo"           </table>\n";
-        if ($force_addad && $HTTP_COOKIE_VARS["ForceAddAd"]==1) {
+        if ($force_addad && $_COOKIE["ForceAddAd"]==1) {
         echo $adadd_forceadd;
         } elseif (!$editadid) {
         echo $adadd_pretext;
@@ -216,9 +239,6 @@ echo"    </td>\n";
 echo"   </tr>\n";
 echo" </table>\n";
 
-#  PLEASE DO NOT REMOVE OR EDIT THIS COPYRIGHT-NOTICE !!! THANKS !!! ################################################
-echo" <p><div class=\"footer\">Logix Classifieds Ver. $bazar_#$Id$&copy 2001-".date("Y")." by <a href=\"http://www.smartisoft.com\" target=\"_blank\">SmartISoft</a></div>\n";
-#####################################################################################################################
 
 echo"</td>\n";
 

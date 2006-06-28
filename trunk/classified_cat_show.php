@@ -1,13 +1,29 @@
-<?
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : classified_cat_show.php
-#  last modified by     :
-#  e-mail               : support@phplogix.com
-#  purpose              : Show the classified cat entry's
-#
-#################################################################################################
+<?php
+ ##############################################################################################
+#                                                                                            #
+#                                   classified_cat_show.php
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
 if(!strpos($_SERVER['PHP_SELF'],'classified_cat_show.php') === false)
 {
   die("YOU MAY NOT ACCESS THIS FILE DIRECTLY");
@@ -30,19 +46,19 @@ while ($db = mysql_fetch_array($result)) {
 
     echo " <tr>\n";
     echo "   <td class=\"classcat1\">\n";
-    if ($db[picture]) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
+    if ($db['picture']) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
     echo "   </td>\n";
     echo "   <td class=\"classcat2\">\n";
-    if ($sales_option) {
-    if ($db[sales]) {
-        if ($db[sales]==1) {
+    if (!empty($sales_option)) {
+    if ($db['sales']) {
+        if ($db['sales']==1) {
         $salesalt=$sales_lang_paid1;
-        } elseif ($db[sales]==2) {
+        } elseif ($db['sales']==2) {
         $salesalt=$sales_lang_paid2;
-        } elseif ($db[sales]==3) {
+        } elseif ($db['sales']==3) {
         $salesalt=$sales_lang_paid3;
         }
-        echo "<img src=\"$image_dir/cats/paid".$db[sales].".gif\" border=\"0\" align=\"right\"
+        echo "<img src=\"$image_dir/cats/paid".$db['sales'].".gif\" border=\"0\" align=\"right\"
             alt=\"$salesalt\"
             onmouseover=\"window.status='$salesalt'; return true;\"
             onmouseout=\"window.status=''; return true;\">\n";
@@ -53,7 +69,7 @@ while ($db = mysql_fetch_array($result)) {
     echo "   <div class=\"smallleft\">\n";
     echo "   $db[description]<br>\n";
 
-    if ($db[passphrase]) {
+    if ($db['passphrase']) {
     echo "<img src=\"$image_dir/icons/key.gif\" alt=\"$cat_pass\" align=\"right\" vspace=\"2\"
             onmouseover=\"window.status='$cat_pass'; return true;\"
             onmouseout=\"window.status=''; return true;\">";
@@ -74,19 +90,19 @@ while ($db = mysql_fetch_array($result)) {
     $db = mysql_fetch_array($result);
 
     echo "   <td class=\"classcat1\">\n";
-    if ($db[picture]) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
+    if ($db['picture']) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
     echo "   </td>\n";
     echo "   <td class=\"classcat2\">\n";
-    if ($sales_option) {
-    if ($db[sales]) {
-        if ($db[sales]==1) {
+    if (!empty($sales_option)) {
+    if ($db['sales']) {
+        if ($db['sales']==1) {
         $salesalt=$sales_lang_paid1;
-        } elseif ($db[sales]==2) {
+        } elseif ($db['sales']==2) {
         $salesalt=$sales_lang_paid2;
-        } elseif ($db[sales]==3) {
+        } elseif ($db['sales']==3) {
         $salesalt=$sales_lang_paid3;
         }
-        echo "<img src=\"$image_dir/cats/paid".$db[sales].".gif\" border=\"0\" align=\"right\"
+        echo "<img src=\"$image_dir/cats/paid".$db['sales'].".gif\" border=\"0\" align=\"right\"
             alt=\"$salesalt\"
             onmouseover=\"window.status='$salesalt'; return true;\"
             onmouseout=\"window.status=''; return true;\">\n";
@@ -98,7 +114,7 @@ while ($db = mysql_fetch_array($result)) {
     echo "   <div class=\"smallleft\">\n";
     echo "   $db[description]<br>\n";
 
-    if ($db[passphrase]) {
+    if ($db['passphrase']) {
         echo "<img src=\"$image_dir/icons/key.gif\" alt=\"$cat_pass\" align=\"right\" vspace=\"2\"
             onmouseover=\"window.status='$cat_pass'; return true;\"
             onmouseout=\"window.status=''; return true;\">";
@@ -126,7 +142,7 @@ while ($db = mysql_fetch_array($result)) {
 } else { // show the subcategories
 
 if ($sales_option) {
-    if (!sales_checkaccess(1,$_SESSION[suserid],$catid)) {  // check access for user and cat
+    if (!sales_checkaccess(1,$_SESSION['suserid'],$catid)) {  // check access for user and cat
     open_sales_window();
     #echo "<script language=javascript>location.replace('classified.php?textmessage=$sales_lang_noaccess');</script>";
     echo "<script language=javascript>location.replace('classified.php');</script>";
@@ -154,7 +170,7 @@ while ($db = mysql_fetch_array($result)) {
 
     echo " <tr>\n";
     echo "   <td class=\"classcat1\">\n";
-    if ($db[picture]) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
+    if ($db['picture']) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
     echo "   </td>\n";
     echo "   <td class=\"classcat2\">\n";
     echo "   <a href=\"classified.php?catid=$catid&subcatid=$db[id]\" onmouseover=\"window.status='$db[description]';
@@ -193,7 +209,7 @@ while ($db = mysql_fetch_array($result)) {
     $dbc = mysql_fetch_array($resultc);
 
     echo "   <td class=\"classcat1\">\n";
-    if ($db[picture]) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
+    if ($db['picture']) { echo "<img src=\"$db[picture] \">\n";} else {echo "&nbsp;";}
     echo "   </td>\n";
     echo "   <td class=\"classcat2\">\n";
     if ($db) {
