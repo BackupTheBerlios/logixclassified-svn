@@ -11,6 +11,11 @@ Fixed Admin to be fully register_globals = off compatible.
 Moved some functions to the functions file, and started function for access control lists
 Added mutiple TODO and KLUDGE comments
 Created TODO, CHANGELOG and CREDITS documentation
+Created credits.html
+Set footer.php instead of footer.inc.php
+Created new logo (temporarily) until I can get some decent templates done
+Cleaned up index.php and main.php for E_NOTICE and E_WARNINGS
+
 
 ---BEGIN Logix Classifieds Changelog- Initial Notes ---
 Latest Changes at the top.

@@ -6,7 +6,7 @@
 # *   begin                : Tuesday June 27, 2006                                           #
 # *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
 # *   email                : support@phplogix.com                                            #
-# *   VERSION:             : $id$
+# *   VERSION:             : $Id$
 #                                                                                            #
 ##############################################################################################
 #    This program is free software; you can redistribute it and/or modify it under the       #

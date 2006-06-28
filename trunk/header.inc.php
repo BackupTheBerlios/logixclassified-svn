@@ -53,7 +53,7 @@ echo  "</pre></td></tr></table>";    */
       <img src="images/pb_banner01.jpg" border=1>
     </td>
     <td width="230">
-      <img src="images/pb_logo01.gif" border=1>
+      <img src="images/pb_logo01.jpg" border=1>
     </td>
    </tr>
   </table>

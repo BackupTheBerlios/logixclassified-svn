@@ -1,13 +1,30 @@
 <?php
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : footer.inc
-#  e-mail               : support@phplogix.com
-#  purpose              : Bazar Footer File
-#$Id$
-#License: GPL
-#################################################################################################
+##############################################################################################
+#                                                                                            #
+#                                footer.php                                                  #
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
+
 #TODO: break this down into footer.php and header template.
 if(!strpos($_SERVER['PHP_SELF'],'footer.inc.php') === false)
 {
@@ -55,7 +72,7 @@ if ((ver == "Microsoft Internet Explorer")&&(num >= 4)) {
  || <a href="termsofuse.php"
 onClick='enterWindow=window.open("termsofuse.php","Terms",
 "width=750,height=550,top=50,left=50,scrollbars=yes"); return false'><? echo $footer_terms;?></a>
-|| &copy; <? echo date("Y",$timestamp);?> by <a href="mailto:<? echo $admin_email;?>"><? echo $bazar_copyright;?></a>
+|| &copy; <? echo date("Y",$timestamp);?> by <a href="credits.html"><? echo $bazar_copyright;?></a>
 <br>
 </div>
 <div class="smallcenter">
@@ -70,7 +87,7 @@ if ($show_proctime) {
     echo "<br>Processing Time: ".substr($proctime,0,7)." sec.";
 }
 
-if ($supportpwd && $support=="$supportpwd") {echo "<p>"; phpinfo();}
+
 ?>
 </div>
 

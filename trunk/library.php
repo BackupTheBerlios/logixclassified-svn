@@ -1,13 +1,30 @@
-<?
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : library.php
-#  last modified by     :
-#  e-mail               : support@phplogix.com
-#  purpose              : Library File
-#
-#################################################################################################
+<?php
+##############################################################################################
+#                                                                                            #
+#                                library.php                                                 #
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
+//TODO: sort this shit out into functions and methods, maybe we need some classes?
  if(!strpos($_SERVER['PHP_SELF'],'library.php') === false)
 {
   die("YOU MAY NOT ACCESS THIS FILE DIRECTLY");
@@ -27,34 +44,45 @@ if( $db_connect_id && $db_name != "" ) {
     die ("Database select Error - please check your DB configuration / setup");
 }
 
-session_name("PHPSESSID");
+//session_name("PHPSESSID");  redundant. php already sets a default, and we dont really care since we're gonna go with crypted sessions
 session_start();
 //massive fixes needed to fix php notices - should develop with error_reporting(E_ALL)
 //numerous sql injection points also in all files- should have a safe_query wrapper, mimicing BIND variables,
 //and lastly - search function and method - trivially explooitable for sql injection. should never allow queries to be passed in GET
 //in fact, all form submits should be converted to method="post" and eliminate GET method as much as possible.
-if ($_COOKIE[PHPSESSID] && !$_SESSION[suserid]) {  // if lost session
+if ($_COOKIE['PHPSESSID'] && empty($_SESSION['suserid'])) {  // if lost session
     $query = mysql_query("SELECT id,userid FROM ".$prefix."sessions WHERE id='$_COOKIE[PHPSESSID]' AND expirestamp>'$timestamp'");
     $session = mysql_fetch_array($query);
-    if ($session[id]) { setsessionvar($session[userid]); }
+    if ($session['id']) { setsessionvar($session['userid']); }
 }
+//TODO:L WTF is this? we dont do this except at checklogin function anyway ..
+//KLUDGE: To prevent E_NOTICE on undefined vars, we need to check if values are set
+$language_user = $language_default;
+(empty($_SESSION['susername']))?$_SESSION['susername'] = "": $_SESSION['susername'] = $_SESSION['susername'];
 
-if (!strpos($_SERVER[PHP_SELF],"frametop.php")) {
+if (!strpos($_SERVER['PHP_SELF'],"frametop.php"))
+{
     mysql_query("INSERT INTO ".$prefix."useronline VALUES ('$timestamp','$ip','$_SERVER[PHP_SELF]','$_SESSION[susername]')");
 }
 
-if ($_COOKIE[Language] && $show_languages){
-    $language_user=$_COOKIE[Language];
-    $_SESSION[suserlanguage]=$_COOKIE[Language];
-} elseif ($_SESSION[suserlanguage] && $show_languages){
-    $language_user=$_SESSION[suserlanguage];
+if (!empty($_COOKIE['Language']) && $show_languages)
+{
+    $language_user=$_COOKIE['Language'];
+    $_SESSION['suserlanguage']=$_COOKIE['Language'];
 }
+elseif (!empty($_SESSION['suserlanguage']) && $show_languages)
+{
+    $language_user=$_SESSION['suserlanguage'];
+}
+(empty($language_user))?$language_user = $language_default:$language_user = $language_user;
+
+
 $language_dir=$languagebase_dir."/".$language_user;
 if (!is_file("$language_dir/variables.php")) {$language_dir=$languagebase_dir."/".$language_default;}
 require("$language_dir/variables.php");
-
-$usertimeoffset = $_SESSION[susertimezone]*3600;
-$userdateformat = ($_SESSION[suserdateformat]) ? $_SESSION[suserdateformat] : $dateformat ;
+(empty($_SESSION['susertimezone']))? $_SESSION['susertimezone']="0000":$_SESSION['susertimezone'] = $_SESSION['susertimezone'];
+$usertimeoffset = $_SESSION['susertimezone']*3600;
+$userdateformat = (!empty($_SESSION['suserdateformat'])) ? $_SESSION['suserdateformat'] : $dateformat ;
 
 if (is_file("sales.php")) {
     include ("sales.php");
@@ -110,17 +138,17 @@ while($extract_results = mysql_fetch_array($extraction))
 }
 #  License Functions
 #################################################################################################
-
+//Obsolete- we arent licensing this crap anymore.
 function licensekey() {
     $file="license.key";
 
-    if (is_readable($file)) {
+   /* if (is_readable($file)) {
     $fd = fopen ($file, "r");
         $buffer = fread($fd, 4096);
     fclose ($fd);
         $decbuffer = licensedecrypt($buffer);
     $array= explode("|",$decbuffer);
-    $key[fourdigit]     = substr($buffer,0,4);
+    $key['fourdigit']     = '';
         $key[number]        = $array[0];
     $key[customername]  = $array[1];
         $key[customeremail] = $array[2];
@@ -131,7 +159,8 @@ function licensekey() {
     return $key;
     } else {
     return false;
-    }
+    }  */
+    return true;
 }
 
 function ed($t) {
@@ -178,7 +207,9 @@ function window_footer() {
     echo "\n";
 }
 
-function died($message) {       //when we die, than with a nice window ;-)
+function died($message)
+{       //when we die, than with a nice window ;-)
+//TODO: Re-do this function died for logging - either sql based or file based, who cares? should work fine
     if(!$message) {
     $message = "There was an unknown error !";
     }
@@ -194,7 +225,9 @@ function died($message) {       //when we die, than with a nice window ;-)
     exit;
 }
 
-function resizeimage($source,$target,$pic_res="100x100",$pic_quality="80") {
+function resizeimage($source,$target,$pic_res="100x100",$pic_quality="80")
+{
+//TODO: Re-do this function resizeimage, we can use our well developed image handling function , modified to suit
 
     $picinfo=GetImageSize($source);
     if ($picinfo[2] == "1" || $picinfo[2] == "2" || $picinfo[2] == "3") {
@@ -259,9 +292,9 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
     $retval=false;
     $result=mysql_query("SELECT * FROM ".$prefix."config WHERE type='member' AND name='$fieldname'") or died(mysql_error());
     $field=mysql_fetch_array($result);
-    if ($field[value]!="no" && ($signup=="0" || ($signup=="1" && $field[value2]!="no") || ($signup=="2" && $field[value5]!="no")) ) { // if enabled
+    if ($field['value']!="no" && ($signup=="0" || ($signup=="1" && $field['value2']!="no") || ($signup=="2" && $field['value5']!="no")) ) { // if enabled
       if ($signup=="2") {  // show Memberdetails
-    if ($field[value3]!="checkbox") {
+    if ($field['value3']!="checkbox") {
         if ($fieldname=="homepage") {
                 if ($value && substr($value,0,7)!="http://") {$value="http://".$value;}
         $retval="
@@ -300,16 +333,16 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
         }
 
       } else {  // signup
-    if ($field[value5]!="no") {$publicinfo="<em id=\"red\">*</em>";} else {$publicinfo="";}
-    if ($field[value2]=="req") { $requiredinfo="<em id=\"red\">**</em>"; } else { $requiredinfo=""; }
-    if ($field[value3]=="text" || $field[value3]=="") {
+    if ($field['value5']!="no") {$publicinfo="<em id=\"red\">*</em>";} else {$publicinfo="";}
+    if ($field['value2']=="req") { $requiredinfo="<em id=\"red\">**</em>"; } else { $requiredinfo=""; }
+    if ($field['value3']=="text" || $field['value3']=="") {
         $retval="
          <tr>
               <td><div class=\"maininputleft\">$name $publicinfo: </div></td>
               <td><input type=\"text\" size=\"$fieldsize\" name=\"$field[name]\" value=\"".htmlspecialchars($value)."\"$readonly> $requiredinfo</td>
              </tr>
          ";
-    } elseif ($field[value3]=="url") {
+    } elseif ($field['value3']=="url") {
         if (!$value) {$value="http://";} elseif ($value && substr($value,0,7)!="http://") {$value="http://".$value;}
         $retval="
          <tr>
@@ -317,7 +350,7 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
               <td><input type=\"text\" size=\"$fieldsize\" name=\"$field[name]\" value=\"".htmlspecialchars($value)."\"$readonly> $requiredinfo</td>
              </tr>
          ";
-    } elseif ($field[value3]=="select") {
+    } elseif ($field['value3']=="select") {
         if (!$value) {
             $optionstr.="<option value=\"\">--------</option>";
         }
@@ -327,7 +360,7 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
         $optionstr.= str_replace("\"$value\"","\"$value\" SELECTED",fread ($fd, filesize ($filename)));
         fclose ($fd);
         } else {
-        $options=explode("|",$field[value4]);
+        $options=explode("|",$field['value4']);
         for ($i=0; $i<count($options); $i++) {
             if (!$signup && $options[$i]=="$value") {$selected="SELECTED";} else {$selected="";}
             $optionstr.="<option value=\"".htmlspecialchars($options[$i])."\" $selected>".htmlspecialchars($options[$i])."</option>";
@@ -341,8 +374,8 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
           </select> $requiredinfo</td>
              </tr>
         ";
-    } elseif ($field[value3]=="checkbox") {
-        if ($signup && $field[value4]) $checked="CHECKED";
+    } elseif ($field['value3']=="checkbox") {
+        if ($signup && $field['value4']) $checked="CHECKED";
         if (!$signup && $value) $checked="CHECKED";
         $retval="
          <tr>
@@ -362,7 +395,7 @@ function memberfieldinputcheck ($fieldname,$inputvalue) {
 
     $query=mysql_query("SELECT * FROM ".$prefix."config WHERE type='member' AND name='$fieldname'");
     $db=mysql_fetch_array($query);
-    if ($db[value2]=="req" && !$inputvalue) {
+    if ($db['value2']=="req" && !$inputvalue) {
     return "$fieldname ";
     } else {
     return "";
@@ -376,18 +409,18 @@ function adfield($cat,$fieldname,$name="",$value="",$fieldsize="") {
     $retval=false;
     $result=mysql_query("SELECT * FROM ".$prefix."config WHERE type='cat' AND name='$fieldname' AND value='$cat'") or died(mysql_error());
     $field=mysql_fetch_array($result);
-    if ($field[value2]!="no") { // if enabled
-    if ($field[value2]=="req") { $requiredinfo="<em id=\"red\">**</em>"; } else { $requiredinfo=""; }
-    if ($field[value3]=="text" || $field[value3]=="url" || $field[value3]=="") {
-        if (!$value) {$value=$field[value4];}
+    if ($field['value2']!="no") { // if enabled
+    if ($field['value2']=="req") { $requiredinfo="<em id=\"red\">**</em>"; } else { $requiredinfo=""; }
+    if ($field['value3']=="text" || $field['value3']=="url" || $field['value3']=="") {
+        if (!$value) {$value=$field['value4'];}
         $retval="
          <tr>
               <td><div class=\"maininputleft\">$name : </div></td>
               <td><input type=\"text\" size=\"$fieldsize\" name=\"in[$field[name]]\" value=\"".htmlspecialchars($value)."\"> ".htmlspecialchars($field[value5])." $requiredinfo</td>
              </tr>
          ";
-         if ($field[value3]=="url") {$retval.="<!--url-->";}
-    } elseif ($field[value3]=="select") {
+         if ($field['value3']=="url") {$retval.="<!--url-->";}
+    } elseif ($field['value3']=="select") {
         if (!$value) {
             $optionstr.="<option value=\"\">--------</option>";
         }
@@ -397,7 +430,7 @@ function adfield($cat,$fieldname,$name="",$value="",$fieldsize="") {
         $optionstr.= str_replace("\"$value\"","\"$value\" SELECTED",fread ($fd, filesize ($filename)));
         fclose ($fd);
         } else {
-        $options=explode("|",$field[value4]);
+        $options=explode("|",$field['value4']);
         for ($i=0; $i<count($options); $i++) {
             if (!$signup && $options[$i]=="$value") {$selected="SELECTED";} else {$selected="";}
             $optionstr.="<option value=\"".htmlspecialchars($options[$i])."\" $selected>".htmlspecialchars($options[$i])."</option>";
@@ -411,8 +444,8 @@ function adfield($cat,$fieldname,$name="",$value="",$fieldsize="") {
           </select> $field[value5] $requiredinfo</td>
              </tr>
         ";
-    } elseif ($field[value3]=="checkbox") {
-        if ($signup && $field[value4]) $checked="CHECKED";
+    } elseif ($field['value3']=="checkbox") {
+        if ($signup && $field['value4']) $checked="CHECKED";
         if (!$signup && $value) $checked="CHECKED";
         $retval="
          <tr>
@@ -822,7 +855,7 @@ function ico_info($value,$align="left") {
 function sidstr () {
     global $PHPSESSID;
 
-    if ($_COOKIE[PHPSESSID] || !$PHPSESSID) {
+    if ($_COOKIE['PHPSESSID'] || !$PHPSESSID) {
         return "";
     } else {
     return "PHPSESSID=$PHPSESSID&";
@@ -831,14 +864,14 @@ function sidstr () {
 }
 
 function requesturi () {
-    return substr($_SERVER[REQUEST_URI],(strrpos($_SERVER[PHP_SELF],"/")+1));
+    return substr($_SERVER['REQUEST_URI'],(strrpos($_SERVER['PHP_SELF'],"/")+1));
 }
 
 function headerstr ($target) {
     global $url_to_start,$PHPSESSID;
 
-    if (substr($_SERVER[SERVER_SOFTWARE],0,6)=="Apache") {
-    if ($_COOKIE[PHPSESSID]) {
+    if (substr($_SERVER['SERVER_SOFTWARE'],0,6)=="Apache") {
+    if ($_COOKIE['PHPSESSID']) {
         $headerstr="Location: ".$url_to_start."/".$target;
     } else { // PHPSESSID Var needed
         if (strpos($target,"?") && strpos($target,"PHPSESSID")) {
@@ -850,7 +883,7 @@ function headerstr ($target) {
         }
     }
     } else {  // else use Refresh Method
-    if ($_COOKIE[PHPSESSID]) {
+    if ($_COOKIE['PHPSESSID']) {
         $headerstr="Refresh: 0;url=".$url_to_start."/".$target;
     } else { // PHPSESSID Var needed
         if (strpos($target,"?") && strpos($target,"PHPSESSID")) {

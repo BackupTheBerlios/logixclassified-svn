@@ -1,25 +1,42 @@
 <?php
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : variables.php
-#  e-mail               : support@phplogix.com
-#  purpose          : English Language File
-#$Id$
-#License: GPL
-#################################################################################################
-#TODO: Add License header, clean these up to be a little more consistent, quote keys, start merging to new key values
+##############################################################################################
+#                                                                                            #
+#                                variables.php                                               #
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
+
+#TODO:clean these up to be a little more consistent, quote keys, start merging to new key values
 #Putting them into an array makes it possible to eventually move to a db driven language set.
 #break them down into sections, rename lang files to .php extension
 $lang       ="English";
 $menusep    =" || ";
 $lang_metatag   ="<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\">"; // Added in V1.55
 
-$gender[m]  ="Male"; // Added in V1.55
-$gender[f]  ="Female"; // Added in V1.55
-$gender[a]  ="Couple M/F"; // Added in V1.55
-$gender[b]  ="Couple F/F"; // Added in V1.55
-$gender[c]  ="Couple M/M"; // Added in V1.55
+$gender['m']  ="Male"; // Added in V1.55
+$gender['f']  ="Female"; // Added in V1.55
+$gender['a']  ="Couple M/F"; // Added in V1.55
+$gender['b']  ="Couple F/F"; // Added in V1.55
+$gender['c']  ="Couple M/M"; // Added in V1.55
 
 $userlevel[0]   ="Junior Member";
 $userlevel[1]   ="Member";
@@ -56,6 +73,8 @@ $mail_msg[20]   ="Dear User\n\nThe following Ad will expire in $timeoutnotify da
 $mail_msg[21]   ="To extend the ad duration within $timeoutconfirm days, go to:\n\n";
 $mail_msg[22]   ="Thank You\n\nYour Webmaster\n$url_to_start";
 $mail_msg[23]   ="Notification about new Mail"; // Added in V1.50
+if(empty($toname)){$toname = "";}
+//KLUDGE: the above in lang variables.php due to E_NOTICES
 $mail_msg[24]   ="Hello $toname\n\nYou have new Mail in your WebMail-Inbox at $bazar_name!\n\nLogin to $url_to_start and check your Mail.\n\nYour Webmaster\n$url_to_start"; // Added in V1.50
 $mail_new   ="New Mail"; // Added in V2.0.2
 
@@ -436,7 +455,7 @@ $sm_friendref   ="- Friend Referer";
 $sm_answer  ="- Reply to AD#";
 $sm_systext ="sends you the following AD-Link: ";
 $sm_emailheader ="";
-$sm_emailfooter ="\n\n-----------------------------\nSent from the $bazar_name @ $HTTP_HOST";
+$sm_emailfooter ="\n\n-----------------------------\nSent from the $bazar_name @ $_SERVER[HTTP_HOST]";
 
 $ar_adid    ="Ad Number :"; // Added in V1.50
 $ar_rating  ="Rating :"; // Added in V1.50

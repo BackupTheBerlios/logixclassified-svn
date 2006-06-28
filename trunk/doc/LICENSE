@@ -1,13 +1,13 @@
 
-		    GNU GENERAL PUBLIC LICENSE
-		       #$Id$2, June 1991
+            GNU GENERAL PUBLIC LICENSE
+            Version 2, June 1991
 
  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
      59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
-			    Preamble
+                Preamble
 
   The licenses for most software are designed to take away your
 freedom to share and change it.  By contrast, the GNU General Public
@@ -56,8 +56,8 @@ patent must be licensed for everyone's free use or not licensed at all.
 
   The precise terms and conditions for copying, distribution and
 modification follow.
-
-		    GNU GENERAL PUBLIC LICENSE
+
+            GNU GENERAL PUBLIC LICENSE
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
   0. This License applies to any program or other work which contains
@@ -111,7 +111,7 @@ above, provided that you also meet all of these conditions:
     License.  (Exception: if the Program itself is interactive but
     does not normally print such an announcement, your work based on
     the Program is not required to print an announcement.)
-
+
 These requirements apply to the modified work as a whole.  If
 identifiable sections of that work are not derived from the Program,
 and can be reasonably considered independent and separate works in
@@ -169,7 +169,7 @@ access to copy from a designated place, then offering equivalent
 access to copy the source code from the same place counts as
 distribution of the source code, even though third parties are not
 compelled to copy the source along with the object code.
-
+
   4. You may not copy, modify, sublicense, or distribute the Program
 except as expressly provided under this License.  Any attempt
 otherwise to copy, modify, sublicense or distribute the Program is
@@ -226,7 +226,7 @@ impose that choice.
 
 This section is intended to make thoroughly clear what is believed to
 be a consequence of the rest of this License.
-
+
   8. If the distribution and/or use of the Program is restricted in
 certain countries either by patents or by copyrighted interfaces, the
 original copyright holder who places the Program under this License
@@ -240,12 +240,12 @@ of the General Public License from time to time.  Such new versions will
 be similar in spirit to the present version, but may differ in detail to
 address new problems or concerns.
 
-Each #$Id$is given a distinguishing #$Id$number.  If the Program
-specifies a #$Id$number of this License which applies to it and "any
+Each Version is given a distinguishing Version number.  If the Program
+specifies a Version number of this License which applies to it and "any
 later version", you have the option of following the terms and conditions
-either of that #$Id$or of any later #$Id$published by the Free
-Software Foundation.  If the Program does not specify a #$Id$number of
-this License, you may choose any #$Id$ever published by the Free Software
+either of that Version or of any later Version published by the Free
+Software Foundation.  If the Program does not specify a Version number of
+this License, you may choose any Version ever published by the Free Software
 Foundation.
 
   10. If you wish to incorporate parts of the Program into other free
@@ -256,7 +256,7 @@ make exceptions for this.  Our decision will be guided by the two goals
 of preserving the free status of all derivatives of our free software and
 of promoting the sharing and reuse of software generally.
 
-			    NO WARRANTY
+                NO WARRANTY
 
   11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
 FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
@@ -278,9 +278,9 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
 PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGES.
 
-		     END OF TERMS AND CONDITIONS
-
-	    How to Apply These Terms to Your New Programs
+             END OF TERMS AND CONDITIONS
+
+        How to Apply These Terms to Your New Programs
 
   If you develop a new program, and you want it to be of the greatest
 possible use to the public, the best way to achieve this is to make it
@@ -296,7 +296,7 @@ the "copyright" line and a pointer to where the full notice is found.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either #$Id$2 of the License, or
+    the Free Software Foundation; either Version 2 of the License, or
     (at your option) any later version.
 
     This program is distributed in the hope that it will be useful,
@@ -314,7 +314,7 @@ Also add information on how to contact you by electronic and paper mail.
 If the program is interactive, make it output a short notice like this
 when it starts in an interactive mode:
 
-    Gnomovision #$Id$69, Copyright (C) year  name of author
+    Gnomovision Version 69, Copyright (C) year  name of author
     Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
     This is free software, and you are welcome to redistribute it
     under certain conditions; type `show c' for details.
@@ -346,7 +346,7 @@ Public License instead of this License.
 The Gecko(tm) engine is subject to the Mozilla Public License license :
 
                           MOZILLA PUBLIC LICENSE
-                                #$Id$1.1
+                                Version 1.1
 
                               ---------------
 
@@ -417,7 +417,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
 
      1.12. "You" (or "Your")  means an individual or a legal entity
      exercising rights under, and complying with all of the terms of, this
-     License or a future #$Id$of this License issued under Section 6.1.
+     License or a future Version of this License issued under Section 6.1.
      For legal entities, "You" includes any entity which controls, is
      controlled by, or is under common control with You. For purposes of
      this definition, "control" means (a) the power, direct or indirect,
@@ -466,12 +466,12 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
 
           (b) under Patent Claims infringed by the making, using, or
           selling of  Modifications made by that Contributor either alone
-          and/or in combination with its Contributor #$Id$(or portions
+          and/or in combination with its Contributor Version (or portions
           of such combination), to make, use, sell, offer for sale, have
           made, and/or otherwise dispose of: 1) Modifications made by that
           Contributor (or portions thereof); and 2) the combination of
           Modifications made by that Contributor with its Contributor
-          #$Id$(or portions of such combination).
+          Version (or portions of such combination).
 
           (c) the licenses granted in Sections 2.2(a) and 2.2(b) are
           effective on the date Contributor first makes Commercial Use of
@@ -481,7 +481,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
           granted: 1) for any code that Contributor has deleted from the
           Contributor Version; 2)  separate from the Contributor Version;
           3)  for infringements caused by: i) third party modifications of
-          Contributor #$Id$or ii)  the combination of Modifications made
+          Contributor Version or ii)  the combination of Modifications made
           by that Contributor with other software  (except as part of the
           Contributor Version) or other devices; or 4) under Patent Claims
           infringed by Covered Code in the absence of Modifications made by
@@ -492,12 +492,12 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      3.1. Application of License.
      The Modifications which You create or to which You contribute are
      governed by the terms of this License, including without limitation
-     Section 2.2. The Source Code #$Id$of Covered Code may be
+     Section 2.2. The Source Code Version of Covered Code may be
      distributed only under the terms of this License or a future version
      of this License released under Section 6.1, and You must include a
      copy of this License with every copy of the Source Code You
      distribute. You may not offer or impose any terms on any Source Code
-     #$Id$that alters or restricts the applicable #$Id$of this
+     Version that alters or restricts the applicable Version of this
      License or the recipients' rights hereunder. However, You may include
      an additional document offering the additional rights described in
      Section 3.5.
@@ -505,14 +505,14 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      3.2. Availability of Source Code.
      Any Modification which You create or to which You contribute must be
      made available in Source Code form under the terms of this License
-     either on the same media as an Executable #$Id$or via an accepted
+     either on the same media as an Executable Version or via an accepted
      Electronic Distribution Mechanism to anyone to whom you made an
-     Executable #$Id$available; and if made available via Electronic
+     Executable Version available; and if made available via Electronic
      Distribution Mechanism, must remain available for at least twelve (12)
      months after the date it initially became available, or at least six
-     (6) months after a subsequent #$Id$of that particular Modification
+     (6) months after a subsequent Version of that particular Modification
      has been made available to such recipients. You are responsible for
-     ensuring that the Source Code #$Id$remains available even if the
+     ensuring that the Source Code Version remains available even if the
      Electronic Distribution Mechanism is maintained by a third party.
 
      3.3. Description of Modifications.
@@ -522,7 +522,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      the Modification is derived, directly or indirectly, from Original
      Code provided by the Initial Developer and including the name of the
      Initial Developer in (a) the Source Code, and (b) in any notice in an
-     Executable #$Id$or related documentation in which You describe the
+     Executable Version or related documentation in which You describe the
      origin or ownership of the Covered Code.
 
      3.4. Intellectual Property Matters
@@ -577,19 +577,19 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      3.6. Distribution of Executable Versions.
      You may distribute Covered Code in Executable form only if the
      requirements of Section 3.1-3.5 have been met for that Covered Code,
-     and if You include a notice stating that the Source Code #$Id$of
+     and if You include a notice stating that the Source Code Version of
      the Covered Code is available under the terms of this License,
      including a description of how and where You have fulfilled the
      obligations of Section 3.2. The notice must be conspicuously included
      in any notice in an Executable version, related documentation or
      collateral in which You describe recipients' rights relating to the
-     Covered Code. You may distribute the Executable #$Id$of Covered
+     Covered Code. You may distribute the Executable Version of Covered
      Code or ownership rights under a license of Your choice, which may
      contain terms different from this License, provided that You are in
      compliance with the terms of this License and that the license for the
-     Executable #$Id$does not attempt to limit or alter the recipient's
-     rights in the Source Code #$Id$from the rights set forth in this
-     License. If You distribute the Executable #$Id$under a different
+     Executable Version does not attempt to limit or alter the recipient's
+     rights in the Source Code Version from the rights set forth in this
+     License. If You distribute the Executable Version under a different
      license You must make it absolutely clear that any terms which differ
      from this License are offered by You alone, not by the Initial
      Developer or any Contributor. You hereby agree to indemnify the
@@ -626,24 +626,24 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      6.1. New Versions.
      Netscape Communications Corporation ("Netscape") may publish revised
      and/or new versions of the License from time to time. Each version
-     will be given a distinguishing #$Id$number.
+     will be given a distinguishing Version number.
 
      6.2. Effect of New Versions.
-     Once Covered Code has been published under a particular #$Id$of the
+     Once Covered Code has been published under a particular Version of the
      License, You may always continue to use it under the terms of that
      version. You may also choose to use such Covered Code under the terms
-     of any subsequent #$Id$of the License published by Netscape. No one
+     of any subsequent Version of the License published by Netscape. No one
      other than Netscape has the right to modify the terms applicable to
      Covered Code created under this License.
 
      6.3. Derivative Works.
-     If You create or use a modified #$Id$of this License (which you may
+     If You create or use a modified Version of this License (which you may
      only do in order to apply it to code which is not already Covered Code
      governed by this License), You must (a) rename Your license so that
      the phrases "Mozilla", "MOZILLAPL", "MOZPL", "Netscape",
      "MPL", "NPL" or any confusingly similar phrase do not appear in your
      license (except to note that your license differs from this License)
-     and (b) otherwise make it clear that Your #$Id$of the license
+     and (b) otherwise make it clear that Your Version of the license
      contains terms which differ from the Mozilla Public License and
      Netscape Public License. (Filling in the name of the Initial
      Developer, Original Code or Contributor in the notice described in
@@ -678,7 +678,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      or a Contributor (the Initial Developer or Contributor against whom
      You file such action is referred to as "Participant")  alleging that:
 
-     (a)  such Participant's Contributor #$Id$directly or indirectly
+     (a)  such Participant's Contributor Version directly or indirectly
      infringes any patent, then any and all rights granted by such
      Participant to You under Sections 2.1 and/or 2.2 of this License
      shall, upon 60 days notice from Participant terminate prospectively,
@@ -686,7 +686,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      agree in writing to pay Participant a mutually agreeable reasonable
      royalty for Your past and future use of Modifications made by such
      Participant, or (ii) withdraw Your litigation claim with respect to
-     the Contributor #$Id$against such Participant.  If within 60 days
+     the Contributor Version against such Participant.  If within 60 days
      of notice, a reasonable royalty and payment arrangement are not
      mutually agreed upon in writing by the parties or the litigation claim
      is not withdrawn, the rights granted by Participant to You under
@@ -701,7 +701,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
      Participant.
 
      8.3.  If You assert a patent infringement claim against Participant
-     alleging that such Participant's Contributor #$Id$directly or
+     alleging that such Participant's Contributor Version directly or
      indirectly infringes any patent where such claim is resolved (such as
      by license or settlement) prior to the initiation of patent
      infringement litigation, then the reasonable value of the licenses
@@ -782,7 +782,7 @@ The Gecko(tm) engine is subject to the Mozilla Public License license :
 EXHIBIT A -Mozilla Public License.
 
      ``The contents of this file are subject to the Mozilla Public License
-     #$Id$1.1 (the "License"); you may not use this file except in
+     Version 1.1 (the "License"); you may not use this file except in
      compliance with the License. You may obtain a copy of the License at
      http://www.mozilla.org/MPL/
 
@@ -802,12 +802,12 @@ EXHIBIT A -Mozilla Public License.
      Alternatively, the contents of this file may be used under the terms
      of the _____ license (the  "[___] License"), in which case the
      provisions of [______] License are applicable instead of those
-     above.  If you wish to allow use of your #$Id$of this file only
+     above.  If you wish to allow use of your Version of this file only
      under the terms of the [____] License and not to allow others to use
-     your #$Id$of this file under the MPL, indicate your decision by
+     your Version of this file under the MPL, indicate your decision by
      deleting  the provisions above and replace  them with the notice and
      other provisions required by the [___] License.  If you do not delete
-     the provisions above, a recipient may use your #$Id$of this file
+     the provisions above, a recipient may use your Version of this file
      under either the MPL or the [___] License."
 
      [NOTE: The text of this Exhibit A may differ slightly from the text of
@@ -819,11 +819,11 @@ EXHIBIT A -Mozilla Public License.
 
      AMENDMENTS
 
-     The Netscape Public License #$Id$1.1 ("NPL") consists of the
-     Mozilla Public License #$Id$1.1 with the following Amendments,
+     The Netscape Public License Version 1.1 ("NPL") consists of the
+     Mozilla Public License Version 1.1 with the following Amendments,
      including Exhibit A-Netscape Public License.  Files identified with
      "Exhibit A-Netscape Public License" are governed by the Netscape
-     Public License #$Id$1.1.
+     Public License Version 1.1.
 
      Additional Terms applicable to the Netscape Public License.
           I. Effect.
@@ -882,7 +882,7 @@ EXHIBIT A -Mozilla Public License.
      EXHIBIT A-Netscape Public License.
 
           "The contents of this file are subject to the Netscape Public
-          License #$Id$1.1 (the "License"); you may not use this file
+          License Version 1.1 (the "License"); you may not use this file
           except in compliance with the License. You may obtain a copy of
           the License at http://www.mozilla.org/NPL/
 
@@ -904,11 +904,11 @@ EXHIBIT A -Mozilla Public License.
           Alternatively, the contents of this file may be used under the
           terms of the _____ license (the "[___] License"), in which case
           the provisions of [______] License are applicable  instead of
-          those above.  If you wish to allow use of your #$Id$of this
+          those above.  If you wish to allow use of your Version of this
           file only under the terms of the [____] License and not to allow
-          others to use your #$Id$of this file under the NPL, indicate
+          others to use your Version of this file under the NPL, indicate
           your decision by deleting  the provisions above and replace  them
           with the notice and other provisions required by the [___]
           License.  If you do not delete the provisions above, a recipient
-          may use your #$Id$of this file under either the NPL or the
+          may use your Version of this file under either the NPL or the
           [___] License."
