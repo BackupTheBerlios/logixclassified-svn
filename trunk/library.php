@@ -336,6 +336,7 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
     if ($field['value5']!="no") {$publicinfo="<em id=\"red\">*</em>";} else {$publicinfo="";}
     if ($field['value2']=="req") { $requiredinfo="<em id=\"red\">**</em>"; } else { $requiredinfo=""; }
     if ($field['value3']=="text" || $field['value3']=="") {
+    (empty($readonly))?$readonly = "":$readonly=$readonly;//KLUDGE.. more undefined vars
         $retval="
          <tr>
               <td><div class=\"maininputleft\">$name $publicinfo: </div></td>
@@ -352,7 +353,7 @@ function memberfield($signup,$fieldname,$name,$value,$fieldsize="") {
          ";
     } elseif ($field['value3']=="select") {
         if (!$value) {
-            $optionstr.="<option value=\"\">--------</option>";
+            $optionstr ="<option value=\"\">--------</option>";
         }
         if (is_file("./$language_dir/$field[value4]")) {
         $filename = "./$language_dir/$field[value4]";
@@ -686,7 +687,7 @@ function badwords ($msg,$mod) {
     $result = mysql_query("SELECT * FROM ".$prefix."badwords") or died("Query Error");
     while ($db = mysql_fetch_array($result)) {
         for ($i=0; $i<count($eachword); $i++) {
-        if (is_int(strpos($eachword[$i],$db[badword]))) {
+        if (is_int(strpos($eachword[$i],$db['badword']))) {
                 if ($mod) {
                 $msg = eregi_replace($eachword[$i], "<span class=\"censored\">".$eachword[$i]."</span>", $msg); // Badword
             } else {
@@ -704,7 +705,7 @@ function badwordsmail ($msg) {
     $result = mysql_query("SELECT * FROM ".$prefix."badwords") or died("Query Error");
     while ($db = mysql_fetch_array($result)) {
         for ($i=0; $i<count($eachword); $i++) {
-        if (is_int(strpos($eachword[$i],$db[badword]))) {
+        if (is_int(strpos($eachword[$i],$db['badword']))) {
                 $msg = eregi_replace($eachword[$i], str_repeats("*", strlen($eachword[$i])), $msg); // Badword
         }
         }
@@ -1016,6 +1017,73 @@ function extract_superglobal($dataname,$inputs)
     (!empty($inputs[$dataname]))?$return_value = $inputs[$dataname]:$return_value="";
 
     return $return_value;
+}
+
+function memory_checkpoint($line,$file,$memory_array)
+{
+       /* This function checks memory usage at points where called, typically just before and jsut after an include and
+stores the info in an array keyed by filename  $memory_array('filename'=>array($line=>$memory_usage,$line=>$memory_usage))
+and returns the whole array, which whenever we want, we log to a file using memory log function.
+Why dont we store to db or just write results? because this *adds* processing time and will obviously affect benchmarking
+We know this will add memory usage, but if we know this function is only loaded once , and we know the array size and etc, we can determine just how much
+memory is used by this function and deduct it from benchmarks, although there is little need.
+*/
+    $memcheck = memory_get_usage();
+    if(!array_key_exists($file,$memory_array))
+    {
+        $memory_array[$file] = array();
+    }
+    array_push($memory_array[$file],array($line=>$memcheck));
+    return $memory_array;
+}
+function write_memory_log($memory_array,$parse_time = 0)
+{
+    /* OK for memory log, we take the array we are fed, and iterate through the array by filename, and store this memory information
+to our log, started and ended by parse time figures so we know how much time is taken to do this function
+and write the log file. because we are gonna be doing benchmarking tests, we will not be using these functions while running apachebench
+although I'd love to- but we can get a very good idea of teh state of the current code from these .
+log format is :
+filename  timestamp
+  \t  line number   memory use \n
+
+ */
+$stamp = date("Y-m-d H:i:s");
+
+    $hdl = fopen("scratch_dir/memory.log","a+");
+    foreach($memory_array as $file => $sizearr)
+    {
+        $res = fwrite($hdl,"$file -- $stamp\n");
+        //var_dump($sizearr);
+        foreach($sizearr as $point)
+        {
+            foreach($point as $line=>$size)
+            {
+                $sizea = round($size/1024);
+                $res2 = fwrite($hdl,"\tLine:$line \tKbytes:$sizea\n");
+            }
+        }
+
+    }
+    $entime = microtime();
+    $etime = $entime - $parse_time;
+     $res3 = fwrite($hdl,"$stamp ptime:$etime\n");
+    fclose($hdl);
+    return "Result: $res  $res2";
+}
+function parse_timer_log($parse_time,$page_name)
+{
+/*  This function takes the start and end times and the page name and writes a log of page parse time per request.
+While this will very likely affect performance and benchmarking, we do want to log this so we can study how page parse times differ, especially
+using apachebench- becasue we can get thuosands of entries and monitor how parse time will "ramp up" and differ between page loads.
+which will be another excellent performance indicator.
+log format is  Y-m-d H:i:s -- page_name -- parse_time \n
+
+*/
+$stamp = date("Y-m-d H:i:s");
+$hdl = fopen("scratch_dir/time.log","a+");
+$res = fwrite($hdl,"$stamp\t$page_name\t $parse_time\n");
+fclose($hdl);
+return $res;
 }
 
 ?>

@@ -1,19 +1,35 @@
 <?php
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : chat.php
-#  License: GPL
-#  e-mail               : support@phplogix.com
-#  purpose              : Inteface to Logix ClassifiedsChat
-# $Id$
-#################################################################################################
+##############################################################################################
+#                                                                                            #
+#                                   chat.php
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
  #TODO: clean up and move to templates.
 #  Include Configs & Variables
 #################################################################################################
 require ("library.php");
 
-if (!$_SESSION[suserid] || !$chat_enable) {
+if (empty($_SESSION['suserid']) || !$chat_enable) {
 
 #  The Head-Section
 #################################################################################################
@@ -42,7 +58,7 @@ echo"      <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"
 echo"       <tr>\n";
 echo"        <td class=\"class2\">\n";
 
-if (!$chat_enable && $_SESSION[suserid]) {
+if (!$chat_enable && $_SESSION['suserid']) {
     echo "<br><br><center><b>Chat is NOT enabled !!!</b></center>";
 } else {
     include ("$language_dir/nologin.inc");

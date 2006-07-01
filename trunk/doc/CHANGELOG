@@ -16,6 +16,10 @@ Set footer.php instead of footer.inc.php
 Created new logo (temporarily) until I can get some decent templates done
 Cleaned up index.php and main.php for E_NOTICE and E_WARNINGS
 Added coding standards html page to docs
+All main pages (non logged in users) have NOTICES and WARNINGS mostly all cleaned up.
+added timer class file
+added scratch dir and time log functions
+
 
 
 ---BEGIN Logix Classifieds Changelog- Initial Notes ---

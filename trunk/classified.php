@@ -24,20 +24,22 @@
 #                        59 Temple Place, Suite 330,                                         #
 #                        Boston, MA 02111-1307 USA                                           #
 ##############################################################################################
-
-
+include("includes/timer.class.php");
+$BenchmarkTimer = new c_Timer;
+$BenchmarkTimer->start(); // Start benchmarking immediately
+//$memusage =array();
 #  Include Configs & Variables
 #################################################################################################
 require ("library.php");
-
+//$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Head-Section
 #################################################################################################
 include ($HEADER);
-
+//$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Menu-Section
 #################################################################################################
 include ("menu.inc.php");
-
+//$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Left-Side-Section
 #################################################################################################
 $tmp_width = ($table_width+(2*$table_width_side)+10);
@@ -45,6 +47,7 @@ echo"<table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" wi
 echo"<tr>\n";
 echo"<td valign=\"top\" align=\"right\">\n";
 include ("left.inc.php");
+//$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 echo"</td>\n";
 #if ($_SESSION[suserid] || $bazarfreeread) {$table_height="";}
 
@@ -62,6 +65,7 @@ echo"        <td class=\"class2\">\n";
 if ((empty($_SESSION['suserid']) && !$bazarfreeread) || (empty($_SESSION['suserid']) && $choice=="notify" || empty($_SESSION['suserid']) && $editadid || empty($_SESSION['suserid']) && $choice=="add" || empty($_SESSION['suserid']) && $choice=="my" || empty($_SESSION['suserid']) && $choice=="fav"))
 {
     include ("$language_dir/nologin.inc");
+    //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 }
 else
 {
@@ -96,6 +100,7 @@ else
         echo $adadd_pretext;
         }
         include ("classified_upd.php");
+        //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } elseif ($choice=="my") {
         echo"           <table align=\"center\" width=\"100%\">\n";
         echo"            <tr>\n";
@@ -113,6 +118,7 @@ else
         echo"            </tr>\n";
         echo"           </table>\n";
         include ("classified_my.php");
+       //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } elseif ($choice=="fav") {
         echo"           <table align=\"center\" width=\"100%\">\n";
         echo"            <tr>\n";
@@ -130,6 +136,7 @@ else
         echo"            </tr>\n";
         echo"           </table>\n";
         include ("classified_my.php");
+        //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } elseif ($choice=="notify") {
         echo"           <table align=\"center\" width=\"100%\">\n";
         echo"            <tr>\n";
@@ -147,6 +154,7 @@ else
         echo"            </tr>\n";
         echo"           </table>\n";
         include ("classified_notify.php");
+        //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } elseif ($choice=="search") {
         echo"           <table align=\"center\" width=\"100%\">\n";
         echo"            <tr>\n";
@@ -164,6 +172,7 @@ else
         echo"            </tr>\n";
         echo"           </table>\n";
         include ("classified_search.php");
+       //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } elseif ($choice=="top") {
         echo"           <table align=\"center\" width=\"100%\">\n";
         echo"            <tr>\n";
@@ -182,6 +191,7 @@ else
         echo"           </table>\n";
         $maximum=$top_maximum;
         include ("classified_top.php");
+       //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } elseif ($choice=="new") {
         echo"           <table align=\"center\" width=\"100%\">\n";
         echo"            <tr>\n";
@@ -199,6 +209,7 @@ else
         echo"            </tr>\n";
         echo"           </table>\n";
         include ("classified_top.php");
+        //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
     } else {
 
         // Classified Main
@@ -221,13 +232,16 @@ else
         echo"            </tr>\n";
         echo"           </table>\n";
 
-
+        //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
         if ($catid && $subcatid) {
         include ("classified_ads_show.php");
+        //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
         } elseif ($sqlquery) {
         include ("classified_results.php");
+         //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
         } else {
         include ("classified_cat_show.php");
+         //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
         }
 
     }
@@ -246,6 +260,7 @@ echo"</td>\n";
 #################################################################################################
 echo"<td valign=\"top\" align=\"left\">\n";
 include ("classified_right.php");
+//$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 echo"</td>\n";
 echo"</tr>\n";
 echo"</table>\n";
@@ -253,4 +268,11 @@ echo"</table>\n";
 #  The Foot-Section
 #################################################################################################
 include ($FOOTER);
+//$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
+$BenchmarkTimer->stop();
+
+$parse_time = $BenchmarkTimer->elapsed();
+parse_timer_log($parse_time,__FILE__);
+//write_memory_log($memusage,$parse_time);
+
 ?>

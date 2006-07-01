@@ -8,7 +8,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
  </head>
 
-<?echo"<body bgcolor=\"$bgcolor\">\n";?>
+<? (empty($bgcolor))?$bgcolor="#CCCCCC":$bgcolor=$bgcolor;echo "<body bgcolor=\"$bgcolor\">\n";?>
 
 <div class="maintext">
 Terms of use<br><br>

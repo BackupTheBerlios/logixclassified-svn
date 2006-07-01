@@ -1,19 +1,35 @@
-<?
-#################################################################################################
-#
-#  project           	: Logix Classifieds
-#  filename          	: forum.php
-#  last modified by  	: 
-#  e-mail            	: support@phplogix.com
-#  purpose           	: Inteface to Forum
-#
-#################################################################################################
-
+<?php
+##############################################################################################
+#                                                                                            #
+#                                  forum.php
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
 #  Include Configs & Variables
 #################################################################################################
 require ("library.php");
 
-if ((!$_SESSION[suserid] && !$forumfreeread) || !$forum_enable) {
+if ((empty($_SESSION['suserid']) && !$forumfreeread) || !$forum_enable)
+{
 
 #  The Head-Section
 #################################################################################################
@@ -42,10 +58,10 @@ echo"      <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"
 echo"       <tr>\n";
 echo"        <td class=\"class2\">\n";
 
-if (!$forum_enable && ($_SESSION[suserid] || $forumfreeread)) {
+if (!$forum_enable && ($_SESSION['suserid'] || $forumfreeread)) {
     echo "<br><br><center><b>Forum is NOT enabled !!!</b></center>";
 } else {
-	include ("$language_dir/nologin.inc");
+    include ("$language_dir/nologin.inc");
 }
 
 echo"        </td>\n";
@@ -72,7 +88,7 @@ include ($FOOTER);
 
 } else {
 
-if (strpos($client,"MSIE")) { 	// Internet Explorer Detection
+if (strpos($client,"MSIE")) {   // Internet Explorer Detection
     $frameheight="107";
 } else {
     $frameheight="119";

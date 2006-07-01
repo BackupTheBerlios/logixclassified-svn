@@ -1,7 +1,7 @@
 <?php
 ##############################################################################################
 #                                                                                            #
-#                                   termsofuse.php
+#                                   timer.class.php
 # *                            -------------------                                           #
 # *   begin                : Tuesday June 27, 2006                                           #
 # *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
@@ -24,10 +24,31 @@
 #                        59 Temple Place, Suite 330,                                         #
 #                        Boston, MA 02111-1307 USA                                           #
 ##############################################################################################
-#TODO: this needs templated  - it should be editable by admin panel, like any other template. this would work much better than
-#a language directory , and we can move lang to being dataabse driven, especially since it is already array based.
-#  Include Configs & Variables
-#################################################################################################
-require ("library.php");
-include ("lang/en/termsofuse.inc");
+class c_Timer
+{
+    var $t_start = 0;
+    var $t_stop = 0;
+    var $t_elapsed = 0;
+
+    function start()
+    {
+        $this->t_start = microtime();
+    }
+
+    function stop()
+    {
+        $this->t_stop  = microtime();
+    }
+
+    function elapsed()
+    {
+        $start_u = substr($this->t_start,0,10); $start_s = substr($this->t_start,11,10);
+        $stop_u  = substr($this->t_stop,0,10);  $stop_s  = substr($this->t_stop,11,10);
+        $start_total = doubleval($start_u) + $start_s;
+        $stop_total  = doubleval($stop_u) + $stop_s;
+        $this->t_elapsed = $stop_total - $start_total;
+        return $this->t_elapsed;
+    }
+}
+
 ?>

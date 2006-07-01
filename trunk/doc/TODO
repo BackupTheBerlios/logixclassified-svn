@@ -1,10 +1,10 @@
 TODO
 $Id$
 ----------- Pre-Release 0.9.0 -----------------------
-credits.html page needs to be developed for copyright and other notices.
+credits.html page needs to be developed for copyright and other notices. partially done
+terms of use and register pages, do not have a menu or link out of there, so no way to return to main page
 INSTALL doc needs to be re-written
 Installer/upgrade script needs to be written
-Coding Standards HTML page placed in docs directory
 Do ALL docs up in html in same style/layout also , interlinking them
 build the secure sql functions and class
 build the auth class
@@ -12,11 +12,28 @@ build the session handler
 start breaking presentation out from code, and get it into templates
 
 (Decision point: Should we go with smarty template system, or should we brew our own light weight system?- Discuss in forum)
+OK smarty.. we *like* smarty very much here, so we are going to try and see if we can adapt and trim down smarty to an absolute minimum of use
+and use caching where possible. I am going to do three benchmark tests, building one complex, one medium, and one simple
+page with templates, identical to the same pages as-is, perhaps with some optimization, in the existing code,
+and do benchmarks at 10,000 and 100,000  and compare them. For this, I also need to build the memory logger utility
+and log memory usage at given points. probably will be a class. I will also be monitoring server load during this test
+
+Identified pages: main.php = lightweight  classified.php = heavyweight page, when viewing full categories.
+However these may be templated and written static instead, if a way can be found to do so safely without any chmod 777
+guestbook.php should be a middleweight page.
+
 
 (Descision Point- Should we make use of ADOdb? we could in the future support other databases such as postgres and oracle and mssql,
  plus have well maintained and stable db functions and classes, despite the potential for load issues)
+ADODB is an excellent utility, however we do not need its full functionality, other than perhaps crypted sessions.
+After teh smarty benchmark tests we will do identical benchmarks with ADOdb and non-ADODB with whichever pages
+we decide on based on the smarty benchmarking.
 
-IMPORTANT for discussion: This application *MUST* scale well to high traffic situations, theerfore the use of Smarty and ADOdb needs to be
+In order to facilitate a fair test we are going to import a large database from a known client just for the test duration, and for this
+reason, we cannot modify or alter the database until testing is done. Testing will also facilitate identification of
+places where we need to optimize SQL.
+
+IMPORTANT for discussion: This application *MUST* scale well to high traffic situations, therefore the use of Smarty and ADOdb needs to be
 *very* carefully considered: We need to build several benchmarking functions that we can use for logging status at certain points,
  page load time, memory usage, server load, etc. A Key point will also be database structure and query optimization.
 We have no solid data other than "hearsay" in regards to the performance of ADOdb and Smarty under high traffic situations, so we do need to get some idea of

@@ -1,13 +1,29 @@
-<?
-#################################################################################################
-#
-#  project              : Logix Classifieds
-#  filename             : guestbook_show.php
-#  last modified by     :
-#  e-mail               : support@phplogix.com
-#  purpose              : Show the guestbook entry's
-#
-#################################################################################################
+<?php
+##############################################################################################
+#                                                                                            #
+#                                   guestbook_show.php
+# *                            -------------------                                           #
+# *   begin                : Tuesday June 27, 2006                                           #
+# *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
+# *   email                : support@phplogix.com                                            #
+# *   VERSION:             : $Id$
+#                                                                                            #
+##############################################################################################
+#    This program is free software; you can redistribute it and/or modify it under the       #
+#    terms of the GNU General Public License as published by the Free Software Foundation;   #
+#    either version 2 of the License, or (at your option) any later version.                 #
+#                                                                                            #
+#    This program is distributed in the hope that it will be useful, but                     #
+#    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
+#    FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.          #
+#                                                                                            #
+#    You should have received a copy of the GNU General Public License along with this       #
+#    program; if not, write to:                                                              #
+#                                                                                            #
+#                        Free Software Foundation, Inc.,                                     #
+#                        59 Temple Place, Suite 330,                                         #
+#                        Boston, MA 02111-1307 USA                                           #
+##############################################################################################
 if(!strpos($_SERVER['PHP_SELF'],'guestbook_show.php') === false)
 {
   die("YOU MAY NOT ACCESS THIS FILE DIRECTLY");
@@ -90,49 +106,49 @@ $result = mysql_query("SELECT * FROM ".$prefix."guestbook ORDER by id $sort LIMI
 while ($db = mysql_fetch_array($result)) {
     $when = date($userdateformat, ($db["timestamp"]+$timeoffset+$usertimeoffset));
 
-    if ($db[email]   != "none") {
+    if ($db['email']   != "none") {
     $email = "<a href=\"mailto: $db[email]\"><img src=\"$image_dir/icons/email.gif\" alt=\" Send E-Mail\" border=\"0\" align=\"right\"></a>";
     } else {
     $email = "";
     }
-    if ($db[icq]     != 0)      {
+    if ($db['icq']     != 0)      {
     $icq = "<a href=\"http://wwp.icq.com/scripts/contact.dll?msgto=$db[icq]\"><img src=\"http://wwp.icq.com/scripts/online.dll?icq=" . $db[icq] . "&img=5\" alt=\"Send ICQ Message\" border=\"0\" align=\"right\" height=\"17\"></a>";
     } else {
     $icq = "";
     }
-    if ($db[http]    != "none") {
+    if ($db['http']    != "none") {
     $http = "<a href=\"http://$db[http]\" target=\"_blank\"><img src=\"$image_dir/icons/home.gif\" alt=\"View Web Page\" border=\"0\" align=\"right\"></a>";
     } else {
     $http = "";
     }
-    if ($db[ip]      != "none") {
+    if ($db['ip']      != "none") {
     $ips = "<img src=\"$image_dir/icons/ip.gif\" alt=\"IP logged\" align=\"left\">";
     } else {
     $ips = "";
     }
-    if ($db[location]!= "none") {
+    if ($db['location']!= "none") {
     $location = "$gb_location<br>$db[location]<br>";
     } else {
     $location = "<br><br>";
     }
-    if ($db[browser]      != "") {
+    if ($db['browser']      != "") {
     $browser = "<img src=\"$image_dir/icons/browser.gif\" alt=\"$db[browser]\" align=\"left\">";
     } else {
     $browser = "";
     }
-
+(empty($_SESSION['susermod']))?$_SESSION['susermod']="": $_SESSION['susermod']= $_SESSION['susermod'];
     echo "  <tr>\n";
     echo "     <td class=\"gbtable1\">\n";
-    echo "        <em id=\"red\">".badwords($db[name],$_SESSION[susermod])."</em><br>\n";
+    echo "        <em id=\"red\">".badwords($db['name'],$_SESSION['susermod'])."</em><br>\n";
     echo "        <div class=\"smallleft\">$location<br></div>\n";
     echo "        <br>$icq $http $email $ips $browser\n";
     echo "     </td>\n";
     echo "        <td class=\"gbtable2\"><div class=\"smallleft\">\n";
-    if ($_SESSION[susermod]) {
+    if ($_SESSION['susermod']) {
     echo "<a href=\"guestbook_submit.php?delid=$db[id]\"><img src=\"$image_dir/icons/trash.gif\" alt=\"MODERATOR Delete Entry\" border=\"0\" align=\"right\"></a>";
     echo "<div class=\"spaceleft\">&nbsp;</div>\n";
     }
-    echo "        $gb_posted $when</div><hr>".badwords($db[message],$_SESSION[susermod])."</td>\n";
+    echo "        $gb_posted $when</div><hr>".badwords($db['message'],$_SESSION['susermod'])."</td>\n";
     echo "  </tr>\n";
     }
 
