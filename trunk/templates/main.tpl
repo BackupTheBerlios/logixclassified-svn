@@ -6,34 +6,46 @@
 <td valign="top" align="right">
 {include file="left.tpl"}
 
-echo "</td>\n";
+ </td>
 
-#  The Main-Section
-#################################################################################################
-echo "<td valign=\"top\" align=\"left\">\n";
-echo " <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\" margin=1 width=\"$table_width\" height=\"$table_height\">\n";
-echo "   <tr>\n";
-echo "    <td class=\"class1\">\n";
-echo "      <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\" height=\"$table_height\">\n";
-echo "       <tr>\n";
-echo "        <td class=\"class2\">\n";
-echo "         <div class=\"mainheader\">$main_head</div>\n";
-echo "         <div class=\"maintext\">\n";
- include main.inc from lang dir- what do it do?
- echo "         </div>\n";
-echo "        </td>\n";
-echo "       </tr>\n";
-echo "      </table>\n";
-echo "    </td>\n";
-echo "   </tr>\n";
-echo " </table>\n";
-echo "</td>\n";
+ <td valign="top" align="left">
+  <table align="center" border="0" cellspacing="0" cellpadding="1" margin=1 width="$table_width" height="$table_height">
+    <tr>
+     <td class="class1">
+       <table align="center" border="0" cellspacing="0" cellpadding="3" width="100%" height="$table_height">
+        <tr>
+         <td class="class2">
+          <div class="mainheader">$main_head</div>
+          <div class="maintext">
 
-echo "<td valign=\"top\" align=\"left\">\n";
-include ("right.inc.php");
+ <br>
+Welcome to <em id="red">Logix Classifieds</em>!!! The ultimate classified ad &amp; matchmaking Software.<br>
+<br>
+{$main_page_body}
+<br>
+<br>
+<center><a href="classified.php?choice=top">TOP ADS</a>
 
-echo "</td>\n";
-echo "</tr>\n";
-echo "</table>\n";
+
+{if $session_username}
+<a href="classified.php?choice=new&amp;sortorder=addate desc">NEW ADS</a>
+{/if}
+
+</center>
+           </div>
+         </td>
+        </tr>
+       </table>
+     </td>
+    </tr>
+  </table>
+ </td>
+
+ <td valign="top" align="left">
+{include file="right.tpl"}
+
+ </td>
+ </tr>
+ </table>
 
 {include file="footer.tpl"}

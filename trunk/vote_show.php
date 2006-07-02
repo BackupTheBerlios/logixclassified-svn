@@ -29,45 +29,77 @@ if(!strpos($_SERVER['PHP_SELF'],'vote_show.php') === false)
 {
   die("YOU MAY NOT ACCESS THIS FILE DIRECTLY");
 }
-$raw_url=rawurlencode(requesturi());
 
-echo "<form action=\"vote_submit.php?source=$raw_url\" method=\"POST\">";
+
     $result=mysql_query("select sum(votes) as sum from ".$prefix."votes");
     if($result) {
         $sum = (int) mysql_result($result,0,"sum");
         mysql_free_result($result);
     }
 
-    $result=mysql_query("select * from ".$prefix."votes order by votes DESC");
-    echo "<table border=0 cellspacing=1 cellpadding=1 height=183><tr><td class=\"votetext\">$vote_vote</td><td class=\"votetext\">$vote_answer</td><td class=\"votetext\">%</td></tr>\n";
-    while($db=mysql_fetch_array($result)) {
+
+//where do these come from? language file somewhere... $vote_vote
+//as above...   $vote_answer
+(empty($vote_vote))?$vote_vote="votes":$vote_vote=$vote_vote;
+(empty($vote_answer))?$vote_answer="answer":$vote_answer=$vote_answer;
+$smarty->assign('vote_vote',$vote_vote);
+$smarty->assign('vote_answer',$vote_answer);
+
+
+$poll_question = "How often do you enjoy yourself at home ???";
+$smarty->assign('poll_question',$poll_question);
+//TODO - overhaul this thing voting - we need to normalize the database.
+//
+$voteanswer[1]="Often";
+$voteanswer[2]="Sometimes";
+$voteanswer[3]="2-3 times week";
+$voteanswer[4]="Never";
+
+$smarty->assign('voteanswer',$voteanswer);
+//TODO: vote_show.php - redo poll system this is totally b0rked
+/*
+//dear god. What happens if there are dozens of polls , over time , this is gonna get *HUGE*
+    $result=mysql_query("select * from ".$prefix."votes where id in ('1','2','3','4') order by votes DESC");
+    while($db=mysql_fetch_array($result))
+    {
     $id=$db['id'];
-    if (!$voteanswer[$id]) {$voteanswer[$id]=$db['name'];}
-    echo "<tr><td align=center><input type=radio name=vote value=\"$id\"></td>";
+    if (empty($voteanswer[$id]))//Why?? why dont we maintain previous polls? ignore this shit.
+    {
+        //$voteanswer[$id]=$db['name'];
+    }
+    else
+    {
+       $voteres[$id] = $db['votes'];
+       $vote_id[$id] = $db['id'];
+    }
+
+echo "<tr><td align=center><input type=radio name=vote value=\"$id\"></td>";
         echo "<td class=\"votetext\" colspan=\"2\">" .$voteanswer[$id]."</td></tr><tr>
     <td class=\"votetext\" align=\"center\">".$db['votes']."</td><td class=\"votetext\">";
 
-        if($sum && (int)$db['votes']) {
+        if($sum && (int)$db['votes'])
+        {
             $per = (int)(100 * $db['votes']/$sum);
 
-        echo "<table align=center border=0 cellspacing=0 cellpadding=1 width=\"$votebar_width\" height=\"$votebar_height\">\n";
-            echo " <tr>\n";
-        echo "  <td class=\"votebarout\">\n";
-            echo "   <table align=left border=0 cellspacing=0 cellpadding=0 width=\"$per%\" height=\"100%\">\n";
-            echo "    <tr>\n";
-        echo "     <td class=\"votebarin\">\n";
-            echo "        <div class=\"votespace\">&nbsp;</div>\n";
-        echo "     </td>\n";
-        echo "    </tr>\n";
-        echo "   </table>\n";
-        echo "  </td>\n";
-        echo " </tr>\n";
-            echo "</table>\n";
+            echo "<table align=center border=0 cellspacing=0 cellpadding=1 width=\"$votebar_width\" height=\"$votebar_height\">\n";
+                echo " <tr>\n";
+            echo "  <td class=\"votebarout\">\n";
+                echo "   <table align=left border=0 cellspacing=0 cellpadding=0 width=\"$per%\" height=\"100%\">\n";
+                echo "    <tr>\n";
+            echo "     <td class=\"votebarin\">\n";
+                echo "        <div class=\"votespace\">&nbsp;</div>\n";
+            echo "     </td>\n";
+            echo "    </tr>\n";
+            echo "   </table>\n";
+            echo "  </td>\n";
+            echo " </tr>\n";
+                echo "</table>\n";
 
-        echo"</td><td class=\"votetext\">$per</td>";
-            }
-        echo "</tr>\n";
+            echo"</td><td class=\"votetext\">$per</td>";
         }
+        echo "</tr>\n";
+    }
 echo "</table>\n";
 echo "<br><input type=submit value=\"$vote_button\"></form>";
+*/
 ?>

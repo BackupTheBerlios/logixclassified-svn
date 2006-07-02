@@ -61,41 +61,21 @@ $memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 $tmp_width = ($table_width+(2*$table_width_side)+10);
 $smarty->assign('tmp_width',$tmp_width);
 ##BOOKMARK work location
-include ("left.inc.php");
+include ("left.php");
 $memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
-echo "</td>\n";
-
-#  The Main-Section
-#################################################################################################
-echo "<td valign=\"top\" align=\"left\">\n";
-echo " <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\" margin=1 width=\"$table_width\" height=\"$table_height\">\n";
-echo "   <tr>\n";
-echo "    <td class=\"class1\">\n";
-echo "      <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\" height=\"$table_height\">\n";
-echo "       <tr>\n";
-echo "        <td class=\"class2\">\n";
-echo "         <div class=\"mainheader\">$main_head</div>\n";
-echo "         <div class=\"maintext\">\n";
-include ("./$language_dir/main.inc");
+$smarty->assign('table_width',$table_width);
+$smarty->assign('table_height',$table_height);
+$smarty->assign('main_head',$main_head);
+$main_page_body = "Here, you can place your content";
+//TODO main.php page body content needs to be stored to db
+$smarty->assign('main_page_body',$main_page_body);
 
 $memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
-echo "         </div>\n";
-echo "        </td>\n";
-echo "       </tr>\n";
-echo "      </table>\n";
-echo "    </td>\n";
-echo "   </tr>\n";
-echo " </table>\n";
-echo "</td>\n";
 
-#  The Right-Side-Section
-#################################################################################################
-echo "<td valign=\"top\" align=\"left\">\n";
-include ("right.inc.php");
+
+include ("right.php");
 $memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
-echo "</td>\n";
-echo "</tr>\n";
-echo "</table>\n";
+
 
 //Make this an optional thing admins can add to their template, because we *HATE* intrusive BS like this...
 if (!empty($firsttimeuser) && $firsttimeuser===true && $addfavorits)
@@ -113,9 +93,8 @@ $BenchmarkTimer->stop();
 
 $parse_time = $BenchmarkTimer->elapsed();
 $smarty->assign('page_parse_time',$parse_time);
-$smarty->display('main.tpl');
 parse_timer_log($parse_time,__FILE__);
 write_memory_log($memusage,$parse_time);
-
+$smarty->display('main.tpl');
 
 ?>

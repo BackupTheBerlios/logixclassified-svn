@@ -1,7 +1,7 @@
 <?php
 ##############################################################################################
 #                                                                                            #
-#                                left.inc.php
+#                                left.php
 # *                            -------------------                                           #
 # *   begin                : Tuesday June 27, 2006                                           #
 # *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
@@ -51,7 +51,7 @@ $smarty->assign('status_header',$status_header);
 $smarty->assign('status_msg',$status_msg);
 
 
-include ("spacer.inc.php");
+
 
 if (!empty($errormessage))
 {
@@ -69,133 +69,94 @@ $smarty->assign('message',$message);
 
 if (empty($_SESSION['suserid']))
 {
+    $smarty->assign('logged_in',"false");
    //KLUDGE (again- jeezus)
     (empty($login))?$login="":$login=$login;
-    if ($login == "lostpass"){
-    echo"          <form method=\"post\" action=\"lostpass.php\" name=\"\">\n";
-    echo"          <div class=\"sideheader\">$lostpw_header</div>\n";
-    echo"          <table width=\"100%\">\n";
-    echo"           <tr><td>\n";
-    echo"            <div class=\"sideleft\">\n";
-    echo"            $lostpw_email<br><input type=\"text\" name=\"email\" size=\"$field_size\" maxlength=\"50\"><br><br>\n";
-    echo"            </div>\n";
-    echo"           </td></tr>\n";
-    echo"           <tr><td>\n";
-    echo"            <input type=\"submit\" value=\"$lostpw_button\" name=\"submit\">\n";
-    echo"           </td></tr>\n";
-    echo"          </table>\n";
-    echo"          </form>\n";
-    } else {
-    echo"          <form method=\"post\" action=\"login.php\" name=\"\">\n";
-    echo"          <div class=\"sideheader\">$login_header</div>\n";
-    echo"          <table width=\"100%\">\n";
-    echo"           <tr><td colspan=\"2\">\n";
-    echo"            <div class=\"sideleft\">\n";
-    echo"            $login_username<br><input type=\"text\" name=\"username\" size=\"$field_size\" maxlength=\"22\"><br>\n";
-    echo"            </div>\n";
-    echo"           </td></tr>\n";
-    echo"           <tr><td colspan=\"2\">\n";
-    echo"            <div class=\"sideleft\">\n";
-    echo"            $login_password<br><input type=\"password\" name=\"password\" size=\"$field_size\" maxlength=\"22\"><br><br>\n";
-    echo"            </div>\n";
-    echo"           </td></tr>\n";
-    echo"           <tr><td valign=\"top\">\n";
-    echo"            <input type=\"hidden\" name=\"loginlink\" value=\"".requesturi()."\">\n";
-    echo"            <input type=\"submit\" value=\" Login \" name=\"submit\">\n";
-    echo"           </td>\n";
-    echo"            $langstr\n";
-    echo"          </tr>\n";
-    echo"          </table>\n";
-    echo"          </form>\n";
+    if ($login == "lostpass")
+    {
+        $smarty->assign('lostpw_header',$lostpw_header);
+        $smarty->assign('lostpw_email',$lostpw_email);
+        $smarty->assign('field_size',$field_size);
+        $smarty->assign('lostpw_button',$lostpw_button);
 
-    echo"          <div class=\"sideleft\">\n";
-    echo"          <a href=\"main.php?login=lostpass\" onmouseover=\"window.status='$logi_link1desc'; return true;\" onmouseout=\"window.status=''; return true;\">$logi_link1</a><br>\n";
-    if ($no_confirmation) {$target="_self";} else {$target="_blank";}
-    echo"          <a href=\"register.php\"  target=\"$target\" onmouseover=\"window.status='$logi_link2desc'; return true;\" onmouseout=\"window.status=''; return true;\">$logi_link2</a>\n";
-    echo"          </div>\n";
+    }
+    else
+    {
+        if ($no_confirmation)
+        {
+            $target="_self";
+        }
+        else
+        {
+            $target="_blank";
+        }
+        $smarty->assign('field_size',$field_size);
+        $smarty->assign('login_header',$login_header);
+        $smarty->assign('login_username',$login_username);
+        $smarty->assign('login_password',$login_password);
+        $langstr = "";
+        $smarty->assign('langstr',$langstr);
+        $smarty->assign('logi_link1desc',$logi_link1desc);
+        $smarty->assign('logi_link1',$logi_link1);
+        $smarty->assign('target',$target);
+        $smarty->assign('logi_link2desc',$logi_link2desc);
+        $smarty->assign('logi_link2',$logi_link2);
+
     }
 
-} else {
+}
+else
+{
     $membernumber=$_SESSION['suserid']+$memberoffset;
-    echo"          <form method=\"post\" action=\"logout.php\" name=\"\">\n";
-    echo"          <div class=\"sideheader\">$login_header</div>\n";
-    echo"          <table width=\"100%\">\n";
-    echo"           <tr><td colspan=\"2\">\n";
-    echo"            <div class=\"sideleft\">\n";
-    echo"            $login_username<br><input type=\"text\" name=\"username\" size=\"$field_size\" maxlength=\"22\" value=\"$_SESSION[susername]\" readonly><br>\n";
-    echo"            </div>\n";
-    echo"           </td></tr>\n";
-    echo"           <tr><td colspan=\"2\">\n";
-    echo"            <div class=\"sideleft\">\n";
-    echo"            $login_member<br><input type=\"text\" name=\"memberid\" size=\"$field_size\" maxlength=\"22\" value=\"$membernumber\" readonly><br><br>\n";
-    echo"            </div>\n";
-    echo"           </td></tr>\n";
-    echo"           <tr><td valign=\"top\">\n";
-    echo"            <input type=\"submit\" value=\"Logout\" name=\"submit\">\n";
-    echo"           </td>\n";
-    echo"           $langstr\n";
-    echo"          </tr>\n";
-    echo"          </table>\n";
-    echo"          </form>\n";
-    if ($show_useronline) {
+    $smarty->assign('membernumber',$membernumber);
+    $smarty->assign('login_header',$login_header);
+    $smarty->assign('login_username',$login_username);
+    $smarty->assign('field_size',$field_size);
+    $smarty->assign('langstr',$langstr);
+    $smarty->assign('session_username',$_SESSION['susername']);
+    $smarty->assign('login_member',$login_member);
+
+    if (!empty($show_useronline) && $show_useronline == true)
+    {
         $timeout=$timestamp-300;  // value in seconds
         mysql_query("DELETE FROM ".$prefix."useronline WHERE timestamp<$timeout");
         $result=mysql_query("SELECT username FROM ".$prefix."useronline WHERE username!='' GROUP by username");
         $user =mysql_num_rows($result);
         $result=mysql_query("SELECT ip FROM ".$prefix."useronline WHERE username='' GROUP by ip");
         $user+=mysql_num_rows($result);
-    if ($user>1) {
-        $uostr=$users_online;
-    } else {
-        $uostr=$user_online;
+        if ($user>1)
+        {
+            $uostr=$users_online;
+        }
+        else
+        {
+            $uostr=$user_online;
+        }
+        $smarty->assign('user',$user);
+        $smarty->assign('uostr',$uostr);
+        $smarty->assign('show_useronline_detail',$show_useronline_detail);
+
     }
-    if ($show_useronline_detail) {
-            echo"   <div class=\"smallright\"><a href=\"useronline.php\">$user $uostr</a></div>";
-    } else {
-            echo"   <div class=\"smallright\">$user $uostr</div>";
+    if ($_SESSION['susermod'])
+    {      // if Moderator or Administrator
+        $smarty->assign('is_moderator',true);
     }
-    }
-    if ($_SESSION['susermod']) {      // if Moderator or Administrator
-    echo"<div class=\"smallright\"><a href=\"$url_to_start/$admin_dir/admin.php\" target=\"_blank\">Admin-Panel</a></div>";
-    } else {
-    if ($webmail_enable && $webmail_notifypopup && $_SESSION['susernewmails']) {
-        echo "<div class=\"smallright\"><a href=\"webmail.php\"><img src=\"$image_dir/icons/new.gif\" hspace=\"4\" border=\"0\" alt=\"$mail_new\" onmouseover=\"window.status='$mail_new'; return true;\" onmouseout=\"window.status=''; return true;\">$webmail_head</a></div>";
-    } else {
-        echo"<br>";
-    }
+    else
+    {
+        if ($webmail_enable && $webmail_notifypopup && $_SESSION['susernewmails'])
+        {
+            $smarty->assign('mail_new',$mail_new);
+            $smarty->assign('webmail_head',$webmail_head);
+        }
+
     }
 }
 
-echo"        </td>\n";
-echo"       </tr>\n";
-echo"      </table>\n";
-echo"    </td>\n";
-echo"   </tr>\n";
-echo" </table>\n";
-
-
-
 # Advertising Window 1
 #################################################################################################
-if ($show_advert1) {
-
-include ("spacer.inc.php");
-
-echo" <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\" width=\"$table_width_side\">\n";
-echo"   <tr>\n";
-echo"    <td class=\"class1\">\n";
-echo"      <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\">\n";
-echo"       <tr>\n";
-echo"        <td class=\"class2\">\n";
-
-    include ("$language_dir/advert1.inc");
-
-echo"        </td>\n";
-echo"       </tr>\n";
-echo"      </table>\n";
-echo"    </td>\n";
-echo"   </tr>\n";
-echo" </table>\n";
+if ($show_advert1)   //lets move this shit to db
+{
+  $smarty->assign('show_advert1',$show_advert1);
 
 }
 
@@ -204,23 +165,17 @@ echo" </table>\n";
 #################################################################################################
 if (!empty($picadoftheday) || !empty($show_advert2))
 {
+$smarty->assign('advert2',true);
 
-include ("spacer.inc.php");
-
-echo" <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"1\" width=\"$table_width_side\">\n";
-echo"   <tr>\n";
-echo"    <td class=\"class1\">\n";
-echo"      <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\">\n";
-echo"       <tr>\n";
-echo"        <td class=\"class2\">\n";
 
 if ($show_picadday)
 {
-    include ("$language_dir/picadday.inc");
+$smarty->assign('potd',true);
+//Man, this is a *shitload* of code for a simple POTD ?!
 
     $query=mysql_query("SELECT * FROM ".$prefix."config WHERE type='config' AND name='fix_adoftheday'") or die("Database Query Error");
     $db=mysql_fetch_array($query);
-    if ($db['value'])
+    if ($db['value'])   //TODO: left.php potd oh my.. anybody ever heard of a straight join?
     { // Fixed AdoftheDay
 
     $result=mysql_query("SELECT * FROM ".$prefix."ads WHERE id='$db[value]'") or die("Database Query Error".mysql_error());
@@ -275,65 +230,67 @@ if ($show_picadday)
 
     }
 
-    if ($db['_picture1']) {           // Thumbnail exist
-    if (!$pic_database) {
-            echo" <div class=\"smallcenter\"><a href=\"classified.php?catid=$db[catid]&subcatid=$db[subcatid]&adid=$db[id]\" onmouseover=\"window.status='".addslashes($db[header])."'; return true;\" onmouseout=\"window.status=''; return true;\">
-        <img src=\"$pic_path/$db[_picture1]\" border=\"0\" vspace=\"2\" hspace=\"2\"></a></div>";
-    } else {
-            echo" <div class=\"smallcenter\"><a href=\"classified.php?catid=$db[catid]&subcatid=$db[subcatid]&adid=$db[id]\" onmouseover=\"window.status='".addslashes($db[header])."'; return true;\" onmouseout=\"window.status=''; return true;\">
-        <img src=\"picturedisplay.php?id=$db[_picture1]\" border=\"0\" vspace=\"2\" hspace=\"2\"></a></div>";
+    if ($db['_picture1'])
+    {           // Thumbnail exist
+//TODO: Screw this- no way are we gonna store pictures in database.
+//Picture protection is a pile of BS to begin with. HTTP protocol wasnt designed this way,
+//if you dont want people keeping copies of images, DONT POST THEM. Even streamed images can be downloaded and saved and copied.
+//so this is an exercise in futility. In the future we may add steganograpgy to this, but otherwise, trying to protect images this way
+//is just plain stupid , and hurts performance.
+
+  //  if (!$pic_database)
+  //  {
+        $smarty->assign('category',$db['catid']);
+        $smarty->assign('subcategory',$db['subcatid']);
+        $smarty->assign('adid',$db['id']);
+        $smarty->assign('img_header',$db['header']);
+        $smarty->assign('potd_path',$pic_path);
+        $smarty->assign('_picture1',$db['_picture1']);
+     //       echo" <div class=\"smallcenter\"><a href=\"classified.php?catid=$db[catid]&subcatid=$db[subcatid]&adid=$db[id]\" onmouseover=\"window.status='".addslashes($db[header])."'; return true;\" onmouseout=\"window.status=''; return true;\">
+       // <img src=\"$pic_path/$db[_picture1]\" border=\"0\" vspace=\"2\" hspace=\"2\"></a></div>";
+   // } else {
+    //        echo" <div class=\"smallcenter\"><a href=\"classified.php?catid=$db[catid]&subcatid=$db[subcatid]&adid=$db[id]\" onmouseover=\"window.status='".addslashes($db[header])."'; return true;\" onmouseout=\"window.status=''; return true;\">
+   //     <img src=\"picturedisplay.php?id=$db[_picture1]\" border=\"0\" vspace=\"2\" hspace=\"2\"></a></div>";
+   // }
     }
-    } elseif ($db['picture1']) {      // Calculate Thumbnail
-    if (!$pic_database) {
+    elseif ($db['picture1'])
+    {      // Calculate Thumbnail
+
+       //if (!$pic_database) {
+//As above- we do not store pics in database anymore.
             $picinfo=GetImageSize("$pic_path/$db[picture1]");
             $picsize=explode("x",$pic_lowres);
-            if ($picinfo[0]>intval($picsize[0]) || $picinfo[1]>intval($picsize[1])) {
-            $div[0]=$picinfo[0]/$picsize[0];
-            $div[1]=$picinfo[1]/$picsize[1];
-            if ($div[0]>$div[1]) {
-                    $sizestr="width=".intval($picinfo[0]/$div[0])." height=".intval($picinfo[1]/$div[0]);
-            } else {
-                    $sizestr="width=".intval($picinfo[0]/$div[1])." height=".intval($picinfo[1]/$div[1]);
-            }
-            } else {
-            $sizestr=$picinfo[3];
-            }
-
-            echo" <div class=\"smallcenter\"><a href=\"classified.php?catid=$db[catid]&subcatid=$db[subcatid]&adid=$db[id]\"onmouseover=\"window.status='".addslashes($db[header])."'; return true;\" onmouseout=\"window.status=''; return true;\">
-        <img src=\"$pic_path/$db[picture1]\" $sizestr border=\"0\" vspace=\"2\" hspace=\"2\"></a></div>";
-    } else {
-            $result = mysql_query("SELECT * FROM ".$prefix."pictures WHERE picture_name='$db[picture1]'") or die(mysql_error());
-            $dbp = mysql_fetch_array($result);
-            $picsize=explode("x",$pic_lowres);
-            if ($dbp['picture_width']>intval($picsize[0]) || $dbp['picture_height']>intval($picsize[1])) {
-                $div[0]=$dbp['picture_width']/$picsize[0];
-                $div[1]=$dbp['picture_height']/$picsize[1];
-                if ($div[0]>$div[1]) {
-                    $sizestr="width=".intval($dbp['picture_width']/$div[0])." height=".intval($dbp['picture_height']/$div[0]);
-                } else {
-                    $sizestr="width=".intval($dbp['picture_width']/$div[1])." height=".intval($dbp['picture_height']/$div[1]);
+            if ($picinfo[0]>intval($picsize[0]) || $picinfo[1]>intval($picsize[1]))
+            {
+                $div[0]=$picinfo[0]/$picsize[0];
+                $div[1]=$picinfo[1]/$picsize[1];
+                if ($div[0]>$div[1])
+                {
+                        $sizestr="width=".intval($picinfo[0]/$div[0])." height=".intval($picinfo[1]/$div[0]);
                 }
-            } else {
-                $sizestr="width=$dbp[picture_width] height=$dbp[picture_height]";
+                else
+                {
+                        $sizestr="width=".intval($picinfo[0]/$div[1])." height=".intval($picinfo[1]/$div[1]);
+                }
             }
+            else
+            {
+                $sizestr=$picinfo[3];
+            }
+           $smarty->assign('category',$db['catid']);
+        $smarty->assign('subcategory',$db['subcatid']);
+        $smarty->assign('adid',$db['id']);
+        $smarty->assign('img_header',$db['header']);
+        $smarty->assign('potd_path',$pic_path);
+        $smarty->assign('picture1',$db['picture1']);
+        $smarty->assign('size_str',$sizestr);
 
-            echo" <div class=\"smallcenter\"><a href=\"classified.php?catid=$db[catid]&subcatid=$db[subcatid]&adid=$db[id]\" onmouseover=\"window.status='".addslashes($db[header])."'; return true;\" onmouseout=\"window.status=''; return true;\">
-        <img src=\"picturedisplay.php?id=$db[picture1]\" $sizestr border=\"0\" vspace=\"2\" hspace=\"2\"></a></div>";
-    }
-    } else {
-    echo"ERROR: Ad $db[id] Pic NOT found !";
+
     }
 
-} else {
-    include ("$language_dir/advert2.inc");
+
 }
 
-echo"        </td>\n";
-echo"       </tr>\n";
-echo"      </table>\n";
-echo"    </td>\n";
-echo"   </tr>\n";
-echo"  </table>\n";
 
-}
+}//end ad2 or POTD
 ?>

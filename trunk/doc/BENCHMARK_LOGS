@@ -1,6 +1,50 @@
 $Id$
 Benchmark Logs
 Latest first - so we can monitor improvements
+Damn! This is amazing. Memory usage on main.php is only 200 K larger than before with smarty in place, and GET THIS:
+apachebench results benchmark *faster* !!
+(Guess why? Smarty caches Whee!)
+ Finished 1000 requests
+
+
+Server Software:        Apache/2.0.55
+Server Hostname:        phplogix.com
+Server Port:            80
+
+Document Path:          /logixclassifieds/main.php
+Document Length:        227 bytes
+
+Concurrency Level:      1
+Time taken for tests:   80.203371 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      494000 bytes
+HTML transferred:       227000 bytes
+Requests per second:    12.47 [#/sec] (mean)
+Time per request:       80.203 [ms] (mean)
+Time per request:       80.203 [ms] (mean, across all concurrent requests)
+Transfer rate:          6.01 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       38   38   2.9     38      99
+Processing:    39   41   8.5     39     172
+Waiting:       38   41   8.5     39     171
+Total:         77   79   9.5     77     210
+
+Percentage of the requests served within a certain time (ms)
+  50%     77
+  66%     77
+  75%     78
+  80%     79
+  90%     84
+  95%     89
+  98%     94
+  99%    117
+ 100%    210 (longest request)
+
 
 July 1 - ran same bench test as below, but on a different domain , to avoid hitting mod_perl and MasonHQ
 (candlealternatives.com)

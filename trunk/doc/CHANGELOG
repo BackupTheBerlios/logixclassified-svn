@@ -19,7 +19,9 @@ Added coding standards html page to docs
 All main pages (non logged in users) have NOTICES and WARNINGS mostly all cleaned up.
 added timer class file
 added scratch dir and time log functions
-
+Built main.php with smarty templates and ran benchmarks- Contrary to what I expected based on theory, smarty is *faster*
+even though it uses more memory, it uses more memory for a *shorter period of time*
+Decision: Convert the whole thing to smarty.
 
 
 ---BEGIN Logix Classifieds Changelog- Initial Notes ---

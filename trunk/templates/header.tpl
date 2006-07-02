@@ -1,3 +1,4 @@
+<!-- $Id$ -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <!-- $Id$ -->
@@ -6,7 +7,7 @@
 {if $favicon}
 <link rel="shortcut icon" href="{$favicon}" />
 {/if}
-<link rel="stylesheet" type="text/css" href="$stylesheet" />
+<link rel="stylesheet" type="text/css" href="{$stylesheet}" />
 <title>{$main_title}{$title_separator}{$secondary_title}</title>
 <meta name="robots" content="index, follow">
 <meta name="revisit-after" content="20 days">

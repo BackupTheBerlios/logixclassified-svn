@@ -51,5 +51,6 @@ $smarty->assign("title_separator",$title_separator);
 $smarty->assign("favicon",$favicon);
 $smarty->assign("charset",$charset);
 $smarty->assign("secondary_title",$secondary_title);
+$smarty->assign('stylesheet',$STYLE);
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 ##############################################################################################
 #                                                                                            #
-#                                menu.php
+#                                right.php
 # *                            -------------------                                           #
 # *   begin                : Tuesday June 27, 2006                                           #
 # *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
@@ -24,18 +24,28 @@
 #                        59 Temple Place, Suite 330,                                         #
 #                        Boston, MA 02111-1307 USA                                           #
 ##############################################################################################
-if(!strpos($_SERVER['PHP_SELF'],'menu.inc.php') === false)
+
+if(!strpos($_SERVER['PHP_SELF'],'right.inc.php') === false)
 {
   die("YOU MAY NOT ACCESS THIS FILE DIRECTLY");
 }
-
-if(empty($table_width_menu))
+if (!empty($show_news) && $show_news === true)
 {
-    $table_width_menu   = 738;
-}
-$smarty->assign('table_width_menu',$table_width_menu);
-$smarty->assign('menusep',$menusep);
-$smarty->assign('menu_language',$menu_language);
+$smarty->assign('display_news',true);
+//TODO news items in database
+$news[0]['news_title'] = "News Title 1";
+$news[0]['news_item'] = "You can use 'Auto Notify' to get notified if new ads have been posted in the cat-egories that interest you.";
+$news[0]['news_date'] = "July 2, 2006";
+$smarty->assign('news',$news);
 
+}
+$show_votes = false;
+//TODO: right.php - hard coded votes to not show because vote_show and etc needs completely re-done - its an unholy mess right now
+if ($show_votes)
+{
+
+include ("vote_show.php");
+
+}
 
 ?>

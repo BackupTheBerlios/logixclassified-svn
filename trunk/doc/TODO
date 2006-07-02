@@ -11,6 +11,10 @@ build the auth class
 build the session handler
 start breaking presentation out from code, and get it into templates
 
+Start putting ADOdb to work in main.php and benchmark again. compare memory usages.
+
+
+
 (Decision point: Should we go with smarty template system, or should we brew our own light weight system?- Discuss in forum)
 OK smarty.. we *like* smarty very much here, so we are going to try and see if we can adapt and trim down smarty to an absolute minimum of use
 and use caching where possible. I am going to do three benchmark tests, building one complex, one medium, and one simple
