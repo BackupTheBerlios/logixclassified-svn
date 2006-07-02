@@ -131,43 +131,43 @@ $text_msg[2]    ="E-Mail confirmation sent to your NEW E-Mail-Address";
 $text_msg[3]    ="E-Mail confirmation sent to your E-Mail-Address";
 
 #########################################################
-# WARNING!! The $menu_link_desc variables below provide javascript messages for the
+# WARNING!! The $menu_language['menu_link_desc variables below provide javascript messages for the
 # browser status bar. DO NOT use any apostrophes in these text messages
 # or they may cause an error in the browser !. Tip: Instead of trying to write
 # "Reply to this member's ad" why not try "Reply to the ad of this member"
 #  or even just "Reply to ad".
 ##########################################################
 
-$menu_link1 ="Home";
-$menu_link1desc ="Back Home";
-$menu_link1url  ="main.php";
-$menu_link2 ="Bazar";
-$menu_link2desc ="Go To The Classified Ads";
-$menu_link2url  ="classified.php";
-$menu_link3 ="Pictures";
-$menu_link3desc ="Pictures, Pictures, Pictures, ...";
-$menu_link3url  ="pictures.php"; // "picturelib.php" for PicLib Option else use "pictures.php"
-$menu_link4 ="Links";
-$menu_link4desc ="Other Selected WebLinks";
-$menu_link4url  ="links.php";
-$menu_link5 ="Forum";
-$menu_link5desc ="Go To The Forum";
-$menu_link5url  ="forum.php";
-$menu_link6 ="Chat";
-$menu_link6desc ="Chat With Other Members";
-$menu_link6url  ="chat.php";
-$menu_link7 ="WebMail"; // Changed in V1.50
-$menu_link7desc ="Check Your Mail"; // Changed in V1.50
-$menu_link7url  ="webmail.php"; // Changed in V1.50
-$menu_link8 ="Members"; // Changed in V1.55
-$menu_link8desc ="Members, View/Change Your Personal Profile"; // Changed in V1.55
-$menu_link8url  ="members.php";
-$menu_link9 ="Guestbook";
-$menu_link9desc ="Sign Our Guestbook";
-$menu_link9url  ="guestbook.php";
-$menu_link10    ="About";
-$menu_link10desc="About Us ...";
-$menu_link10url ="contact.php";
+$menu_language['menu_link1'] ="Home";
+$menu_language['menu_link1desc'] ="Back Home";
+$menu_language['menu_link1url']  ="main.php";
+$menu_language['menu_link2'] ="Bazar";
+$menu_language['menu_link2desc'] ="Go To The Classified Ads";
+$menu_language['menu_link2url']  ="classified.php";
+$menu_language['menu_link3'] ="Pictures";
+$menu_language['menu_link3desc'] ="Pictures, Pictures, Pictures, ...";
+$menu_language['menu_link3url']  ="pictures.php"; // "picturelib.php" for PicLib Option else use "pictures.php"
+$menu_language['menu_link4'] ="Links";
+$menu_language['menu_link4desc'] ="Other Selected WebLinks";
+$menu_language['menu_link4url']  ="links.php";
+$menu_language['menu_link5'] ="Forum";
+$menu_language['menu_link5desc'] ="Go To The Forum";
+$menu_language['menu_link5url']  ="forum.php";
+$menu_language['menu_link6'] ="Chat";
+$menu_language['menu_link6desc'] ="Chat With Other Members";
+$menu_language['menu_link6url']  ="chat.php";
+$menu_language['menu_link7'] ="WebMail"; // Changed in V1.50
+$menu_language['menu_link7desc'] ="Check Your Mail"; // Changed in V1.50
+$menu_language['menu_link7url']  ="webmail.php"; // Changed in V1.50
+$menu_language['menu_link8'] ="Members"; // Changed in V1.55
+$menu_language['menu_link8desc'] ="Members, View/Change Your Personal Profile"; // Changed in V1.55
+$menu_language['menu_link8url']  ="members.php";
+$menu_language['menu_link9'] ="Guestbook";
+$menu_language['menu_link9desc'] ="Sign Our Guestbook";
+$menu_language['menu_link9url']  ="guestbook.php";
+$menu_language['menu_link10']    ="About";
+$menu_language['menu_link10desc']="About Us ...";
+$menu_language['menu_link10url'] ="contact.php";
 
 $main_head  ="Home";
 $classified_head="Bazar";

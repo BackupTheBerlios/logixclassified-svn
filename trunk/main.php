@@ -30,9 +30,9 @@ $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 #  Include Configs & Variables
 #################################################################################################
-//$memusage = array();
+$memusage = array();
 require ("library.php");
- //$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 //TODO: main.php 32 Eliminate this cookie shit, use sessions for logged in users, track what they have viewed or not
 //TODO: this is where we would check user login , and if logged in set up their specific page views needs.
 //TODO: we want to build a cache of the core, and only need to dynamically write the stuff "around" it.. some pages can be fully cached as html
@@ -50,20 +50,19 @@ if (!empty($_COOKIE["checkviewed"]) && $_COOKIE["checkviewed"] != "1")
 
 #  The Head-Section
 #################################################################################################
-include ($HEADER);
- //$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+include ('header.php');
+$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Menu-Section
 #################################################################################################
-include ("menu.inc.php");
- //$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+include ("menu.php");
+$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Left-Side-Section
 #################################################################################################
 $tmp_width = ($table_width+(2*$table_width_side)+10);
-echo "<table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"$tmp_width\">\n";
-echo "<tr>\n";
-echo "<td valign=\"top\" align=\"right\">\n";
+$smarty->assign('tmp_width',$tmp_width);
+##BOOKMARK work location
 include ("left.inc.php");
-//$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 echo "</td>\n";
 
 #  The Main-Section
@@ -78,7 +77,8 @@ echo "        <td class=\"class2\">\n";
 echo "         <div class=\"mainheader\">$main_head</div>\n";
 echo "         <div class=\"maintext\">\n";
 include ("./$language_dir/main.inc");
-//$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+
+$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 echo "         </div>\n";
 echo "        </td>\n";
 echo "       </tr>\n";
@@ -92,7 +92,7 @@ echo "</td>\n";
 #################################################################################################
 echo "<td valign=\"top\" align=\"left\">\n";
 include ("right.inc.php");
-//$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 echo "</td>\n";
 echo "</tr>\n";
 echo "</table>\n";
@@ -105,15 +105,17 @@ if (!empty($firsttimeuser) && $firsttimeuser===true && $addfavorits)
 
 #  The Foot-Section
 #################################################################################################
-include ("footer.php");
+include ('footer.php');
 ////$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 //TODO make sure and remove the .inc files, and add the new files
 $BenchmarkTimer->stop();
 
 
 $parse_time = $BenchmarkTimer->elapsed();
+$smarty->assign('page_parse_time',$parse_time);
+$smarty->display('main.tpl');
 parse_timer_log($parse_time,__FILE__);
-//write_memory_log($memusage,$parse_time);
+write_memory_log($memusage,$parse_time);
 
 
 ?>
