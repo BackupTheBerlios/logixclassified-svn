@@ -57,9 +57,9 @@ $fix_tmp_dir        = "";                   // normally NOT needed !
 #################################################################################################
 $bazar_name         = "Classifieds";               // the name of the bazar site
 $bazar_copyright    = "PHPLogix";             // the name of your company
-$bazar_#$Id$     = "0.9.0";              // PLEASE DO NOT EDIT THIS
-$book_#$Id$      = "0.9.0";              // PLEASE DO NOT EDIT THIS
-$members_#$Id$   = "0.9.0";              // PLEASE DO NOT EDIT THIS
+-$bazar_version     = "0.9.0";              // PLEASE DO NOT EDIT THIS
+-$book_version     = "0.9.0";              // PLEASE DO NOT EDIT THIS
+-$members_version   = "0.9.0";              // PLEASE DO NOT EDIT THIS
 
 #  Mail Configuration
 #################################################################################################
@@ -197,7 +197,10 @@ $table_width_menu   = 738;                  // Menu Table Width
 $table_width_side   = 130;                  // Side Table Width
 $votebar_width      = 60;                   // votebar with
 $votebar_height     = 10;                   // votebar height
-
+-$favicon =    "http://www.phplogix.com/logix.ico"; //Full URL to your favicon.ico image . leave blank if not used
+-$charset = "windows-1252"; //Character set fr chosen language- this is a default setting in the event no other is available
+-$default_charset = "windows-1252";
+-$title = "Logix Classifieds";
 #  Security Configuration
 #################################################################################################
 $supportpwd     = "";               // enable php-info-page if support-pwd is given & known, PARANOID-Setting: "" -> disabled
@@ -235,6 +238,11 @@ if ($fix_tmp_dir && is_writeable($fix_tmp_dir)) { ini_set("session.save_path", "
 
 if ($compress_output) { ob_start ("ob_gzhandler"); }
 
+- require_once("/var/www/logic/public_html/freechess/backends/smarty/libs/Smarty.class.php");
+-$this_path = dirname(__FILE__);
+-$smarty = new Smarty;
+-$smarty->compile_dir = "$this_path/scratch_dir";
+-$smarty->template_dir = "$this_path/templates";
 #################################################################################################
 #################################################################################################
 #################################################################################################
