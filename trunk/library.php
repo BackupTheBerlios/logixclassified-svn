@@ -139,6 +139,7 @@ while($extract_results = mysql_fetch_array($extraction))
 #  License Functions
 #################################################################################################
 //Obsolete- we arent licensing this crap anymore.
+/*
 function licensekey() {
     $file="license.key";
 
@@ -159,7 +160,7 @@ function licensekey() {
     return $key;
     } else {
     return false;
-    }  */
+    }
     return true;
 }
 
@@ -174,7 +175,7 @@ function ed($t) {
       }
       return $v;
 }
-
+    */
 #  Functions
 #################################################################################################
 

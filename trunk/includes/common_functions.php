@@ -32,7 +32,7 @@
 #  Include Configs & Variables
 #################################################################################################
 require_once("../config/config.php");
-
+//The below database stuff is going to be removed , once we have all db calls and queries converted to teh new db class.
 if ($db_persistent) {
         $db_connect_id = mysql_pconnect($db_server, $db_user, $db_pass) or die ("Database connect Error - please check your DB configuration / setup");
 } else {
@@ -84,6 +84,7 @@ require("$language_dir/variables.php");
 $usertimeoffset = $_SESSION['susertimezone']*3600;
 $userdateformat = (!empty($_SESSION['suserdateformat'])) ? $_SESSION['suserdateformat'] : $dateformat ;
 
+//This is useless, we need to build our own payment methods and gateway, maybe borrow some code from OSCommerce
 if (is_file("sales.php")) {
     include ("sales.php");
     require("$language_dir/sales_variables.php");
@@ -139,6 +140,7 @@ while($extract_results = mysql_fetch_array($extraction))
 #  License Functions
 #################################################################################################
 //Obsolete- we arent licensing this crap anymore.
+/*
 function licensekey() {
     $file="license.key";
 
@@ -159,9 +161,10 @@ function licensekey() {
     return $key;
     } else {
     return false;
-    }  */
+    }
     return true;
 }
+//takes a string and returns a hashed binary value- it's pretty useless here, probably was intended for the key licensing
 
 function ed($t) {
       $r = md5("2fast4MICRO$OFT!");
@@ -174,7 +177,7 @@ function ed($t) {
       }
       return $v;
 }
-
+  */
 #  Functions
 #################################################################################################
 
@@ -270,7 +273,7 @@ function resizeimage($source,$target,$pic_res="100x100",$pic_quality="80")
     }
     return false;
 }
-
+//TODO: No freakin way are we ging to store images to database.
 function move_uploaded_file_todb($filename,$picturename,$type) {
     global $prefix;
 
