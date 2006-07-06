@@ -25,17 +25,35 @@
 #                        Boston, MA 02111-1307 USA                                           #
 ##############################################################################################
 //TODO main.php- template this first ..
-include("includes/timer.class.php");
+include_once("includes/timer.class.php");
 $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
+//Now, include the configuration.
+require_once ("library.php");
+if($debug === true)
+{
+    include_once("includes/benchmark.class.php");
+    $benchmark = new DebugLib;
+    $benchmark->scratch_dir = $scratch_dir;
+}
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
+include_once('includes/mysql.class.php');
+$db = new DbMysql; //instantiate the database object
+$db->connect($db_server,$db_user,$db_pass,$db_name,$db_persistent);
+$db->prefix = $prefix;
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 #  Include Configs & Variables
 #################################################################################################
-$memusage = array();
-require ("library.php");
-$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 //TODO: main.php 32 Eliminate this cookie shit, use sessions for logged in users, track what they have viewed or not
 //TODO: this is where we would check user login , and if logged in set up their specific page views needs.
 //TODO: we want to build a cache of the core, and only need to dynamically write the stuff "around" it.. some pages can be fully cached as html
+
 if (!empty($_COOKIE["checkviewed"]) && $_COOKIE["checkviewed"] != "1")
 {
     setcookie("checkcookie", "1", $cookietime, "$cookiepath");
@@ -51,18 +69,30 @@ if (!empty($_COOKIE["checkviewed"]) && $_COOKIE["checkviewed"] != "1")
 #  The Head-Section
 #################################################################################################
 include ('header.php');
-$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 #  The Menu-Section
 #################################################################################################
 include ("menu.php");
-$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 #  The Left-Side-Section
 #################################################################################################
 $tmp_width = ($table_width+(2*$table_width_side)+10);
 $smarty->assign('tmp_width',$tmp_width);
-##BOOKMARK work location
+
 include ("left.php");
-$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 $smarty->assign('table_width',$table_width);
 $smarty->assign('table_height',$table_height);
 $smarty->assign('main_head',$main_head);
@@ -70,12 +100,18 @@ $main_page_body = "Here, you can place your content";
 //TODO main.php page body content needs to be stored to db
 $smarty->assign('main_page_body',$main_page_body);
 
-$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 
 include ("right.php");
-$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
 
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 
 //Make this an optional thing admins can add to their template, because we *HATE* intrusive BS like this...
 if (!empty($firsttimeuser) && $firsttimeuser===true && $addfavorits)
@@ -86,15 +122,23 @@ if (!empty($firsttimeuser) && $firsttimeuser===true && $addfavorits)
 #  The Foot-Section
 #################################################################################################
 include ('footer.php');
-////$memusage = memory_checkpoint(__LINE__,__FILE__,$memusage);
+
 //TODO make sure and remove the .inc files, and add the new files
+if($debug)
+{
+    $benchmark->memory_checkpoint(__LINE__,__FILE__);
+}
 $BenchmarkTimer->stop();
 
 
 $parse_time = $BenchmarkTimer->elapsed();
 $smarty->assign('page_parse_time',$parse_time);
-parse_timer_log($parse_time,__FILE__);
-write_memory_log($memusage,$parse_time);
+if($debug)
+{
+    $benchmark->write_memory_log($parse_time);
+    $benchmark->parse_timer_log($parse_time,__FILE__);
+}
+
 $smarty->display('main.tpl');
 
 ?>

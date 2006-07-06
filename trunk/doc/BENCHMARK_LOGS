@@ -1,6 +1,87 @@
 $Id$
 Benchmark Logs
-Latest first - so we can monitor improvements
+Latest first - so we can monitor improvements                                      +
+
+OK I converted index to use smarty, this is much more identical:
+Results of index.php ab after smarty
+(Note the very slight difference in transfer rate, which is perfectly in line with the before page, so adding smarty did very little to affect
+this page. )
+Server Software:        Apache/2.0.55
+Server Hostname:        phplogix.com
+Server Port:            80
+
+Document Path:          /logixclassifieds/index.php
+Document Length:        228 bytes
+
+Concurrency Level:      1
+Time taken for tests:   84.903706 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      495000 bytes
+HTML transferred:       228000 bytes
+Requests per second:    11.78 [#/sec] (mean)
+Time per request:       84.904 [ms] (mean)
+Time per request:       84.904 [ms] (mean, across all concurrent requests)
+Transfer rate:          5.69 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       38   41  68.1     38    2161
+Processing:    39   42  16.0     39     390
+Waiting:       38   42  15.9     39     389
+Total:         77   84  72.8     77    2261
+
+Percentage of the requests served within a certain time (ms)
+  50%     77
+  66%     78
+  75%     80
+  80%     82
+  90%     87
+  95%     93
+  98%    128
+  99%    199
+ 100%   2261 (longest request)
+
+Results of index.php ab before smarty:
+Server Software:        Apache/2.0.55
+Server Hostname:        phplogix.com
+Server Port:            80
+
+Document Path:          /logixclassifieds/index.php
+Document Length:        228 bytes
+
+Concurrency Level:      1
+Time taken for tests:   81.352685 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      495000 bytes
+HTML transferred:       228000 bytes
+Requests per second:    12.29 [#/sec] (mean)
+Time per request:       81.353 [ms] (mean)
+Time per request:       81.353 [ms] (mean, across all concurrent requests)
+Transfer rate:          5.94 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       38   38   2.8     38      72
+Processing:    39   42   8.0     39     113
+Waiting:       38   41   8.0     39     113
+Total:         77   80   8.6     77     151
+
+Percentage of the requests served within a certain time (ms)
+  50%     77
+  66%     79
+  75%     81
+  80%     83
+  90%     87
+  95%     94
+  98%    112
+  99%    127
+ 100%    151 (longest request
 Damn! This is amazing. Memory usage on main.php is only 200 K larger than before with smarty in place, and GET THIS:
 apachebench results benchmark *faster* !!
 (Guess why? Smarty caches Whee!)

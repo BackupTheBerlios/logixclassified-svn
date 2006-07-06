@@ -13,6 +13,9 @@ Under the trade name PHPLogix.
 Under the Auspices of the GPL, Credit and copyright is hereby acknowleged as above, while specific copyrights on specific code still apply,
 Copyright notices are given herein only.
 
-Until such time as the credits html page is developed, there are no other copyright or notices posted on the application's pages.
-This page with related links will be developed prior to the first release of this forked project, and apropriate credit and links given
-on that page.
+Other credits:
+timer.class.php is derived from http://sourceforge.net/projects/blacknova/ (http://blacknova.net)
+settings.class is derived from   http://www.phpit.net/article/create-settings-class-php/
+The repository class is derived from http://www.phpit.net/article/using-globals-php/ (awesome idea)
+and finally, the xml_library used is derived from http://keithdevens.com/software/phpxml
+

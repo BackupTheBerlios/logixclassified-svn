@@ -164,9 +164,12 @@ $picturesfree       = true;                 // Anonymous can view pictures (or p
 $linksfree      = true;                 // Anonymous can view links
 $guestbookfree      = true;                 // Anonymous can read and add Entry's to Guestbook
 $votefree       = true;                 // Anonymous can vote
+$debug = true; //Set ths only during development, benchmarking and debugging, activates debug tools
+$scratch_dir = "/var/www/logic/public_html/logixclassifieds/scratch_dir";    //absolute path to a world writable directory where we can write data and compiled templates
 
 #  Display Configuration
 #################################################################################################
+ $adult_only = false; //thanks to smarty templates we can show main page in index, or the entry gateway.
 $STYLE          = "style.css";              // specify your CascadeStyleSheet-File (*.css) EDIT THIS FILE FOR COLORS & FONTS
 $HEADER         = "header.inc.php";         // the header file that you want at the top of all the pages
 $FOOTER         = "footer.inc.php";         // the footer file that you want at the bottom of all the pages
@@ -237,12 +240,13 @@ ini_set("session.cookie_path", "$cookiepath");
 if ($fix_tmp_dir && is_writeable($fix_tmp_dir)) { ini_set("session.save_path", "$fix_tmp_dir"); }
 
 if ($compress_output) { ob_start ("ob_gzhandler"); }
+require_once("/var/www/logic/public_html/freechess/backends/smarty/libs/Smarty.class.php");
+$this_path = dirname(__FILE__);
+$smarty = new Smarty;
+$smarty->compile_dir = "$scratch_dir";
+$smarty->template_dir = "$this_path/templates";
 
-- require_once("/var/www/logic/public_html/freechess/backends/smarty/libs/Smarty.class.php");
--$this_path = dirname(__FILE__);
--$smarty = new Smarty;
--$smarty->compile_dir = "$this_path/scratch_dir";
--$smarty->template_dir = "$this_path/templates";
+
 #################################################################################################
 #################################################################################################
 #################################################################################################

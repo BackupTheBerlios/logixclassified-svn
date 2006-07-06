@@ -38,7 +38,7 @@ include ($HEADER);
 //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Menu-Section
 #################################################################################################
-include ("menu.inc.php");
+include ("menu.php");
 //$memusage =memory_checkpoint(__LINE__,__FILE__,$memusage);
 #  The Left-Side-Section
 #################################################################################################

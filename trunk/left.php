@@ -112,6 +112,7 @@ else
     $smarty->assign('login_header',$login_header);
     $smarty->assign('login_username',$login_username);
     $smarty->assign('field_size',$field_size);
+    $langstr = "";
     $smarty->assign('langstr',$langstr);
     $smarty->assign('session_username',$_SESSION['susername']);
     $smarty->assign('login_member',$login_member);

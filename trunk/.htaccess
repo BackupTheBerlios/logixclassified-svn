@@ -2,4 +2,5 @@ php_flag register_globals off
 Order deny,allow
 deny from all
 allow from 65.7.198.57
+allow from 67.18.164.242
 

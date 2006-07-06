@@ -1,7 +1,7 @@
 <?php
 ##############################################################################################
 #                                                                                            #
-#                                   index.php                                                #
+#                                   settings.class.php
 # *                            -------------------                                           #
 # *   begin                : Tuesday June 27, 2006                                           #
 # *   copyright            : (C) 2006  Logix Classifieds Development Team                    #
@@ -24,19 +24,109 @@
 #                        59 Temple Place, Suite 330,                                         #
 #                        Boston, MA 02111-1307 USA                                           #
 ##############################################################################################
-#  Include Configs & Variables
-#################################################################################################
-require_once ("library.php");
-
-if($adult_only == false)
+Class Settings
 {
-    include('main.php');
-}
-else
-{
-   include('header.php');
+        var $_settings = array();
 
-    include('footer.php');
-    $smarty->display('index.tpl');
+        function get($var)
+        {
+            $var = explode('.', $var); //we can have stuff like $db.host perhaps?
+
+            $result = $this->_settings;
+            foreach ($var as $key)
+            {
+                if (!isset($result[$key]))
+                {
+                    return false;
+                }
+
+                $result = $result[$key];
+            }
+
+            return $result;
+        }
+
 }
+
+Class Settings_array Extends Settings
+{
+//This will be moved to each its own file based on what type of config we use
+    function load ($file)
+    {
+        if (file_exists($file) == false)
+        {
+            return false;
+        }
+            // Include file
+            include ($file);
+
+     // Get declared variables
+        unset($file);
+        $vars = get_defined_vars();
+
+        // Add to settings array
+        foreach ($vars as $key => $val)
+        {
+                if ($key == 'this')
+                {
+                    continue;
+                }
+
+                $this->_settings[$key] = $val;
+        }
+    }
+}
+
+Class Settings_ini Extends Settings
+{
+    function load ($file)
+    {
+        if (file_exists($file) == false)
+        {
+            return false;
+        }
+        $this->_settings = parse_ini_file ($file, true);
+    }
+}
+Class Settings_post Extends Settings
+{
+    function load ($data)
+    {
+        if (empty($data))
+        {
+            return false;
+        }
+        foreach($data as $key => $value)
+        {
+            $this->_settings[$key] = $value;
+        }
+    }
+}
+Class Settings_XML Extends Settings
+{
+    function load ($file)
+    {
+            if (file_exists($file) == false)
+            {
+                return false;
+            }
+
+            include ('xml_library.php'); /* gotten from   http://keithdevens.com/software/phpxml */
+            $xml = file_get_contents($file);
+            $data = XML_unserialize($xml);
+
+            $this->_settings = $data['settings'];
+    }
+/* <?xml version="1.0" encoding="UTF-8"?>
+<settings>
+        <db>
+                <name>test</name>
+                <host>localhost</host>
+        </db>
+</settings>*/
+
+}
+
+
 ?>
+

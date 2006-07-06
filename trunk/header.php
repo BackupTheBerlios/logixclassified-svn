@@ -46,7 +46,7 @@ if(empty($favicon))
     $favicon = "/favicon.ico";
 }
 
-$smarty->assign("title",$title);
+$smarty->assign("main_title",$title);
 $smarty->assign("title_separator",$title_separator);
 $smarty->assign("favicon",$favicon);
 $smarty->assign("charset",$charset);

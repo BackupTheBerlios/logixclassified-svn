@@ -77,7 +77,7 @@
                </td></tr>
                <tr><td colspan="2">
                 <div class="sideleft">
-                {$login_member}<br><input type="text" name="memberid" size="{$field_size}" maxlength="22" value="{$membernumber}" readonly><br><br>
+                <br><input type="hidden" name="memberid" value="{$membernumber}"><br><br>
                 </div>
                </td></tr>
                <tr><td valign="top">

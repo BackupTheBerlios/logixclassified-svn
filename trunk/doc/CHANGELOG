@@ -22,7 +22,11 @@ added scratch dir and time log functions
 Built main.php with smarty templates and ran benchmarks- Contrary to what I expected based on theory, smarty is *faster*
 even though it uses more memory, it uses more memory for a *shorter period of time*
 Decision: Convert the whole thing to smarty.
-
+Added in settings class
+Added in mysql class with bind variables
+Added in benchmark class extending timer class
+added debug and scratch_dir variables to configuration
+updated credits page to reflect additions and borrowed code.
 
 ---BEGIN Logix Classifieds Changelog- Initial Notes ---
 Latest Changes at the top.
@@ -37,5 +41,5 @@ of the same major revision
 Second number is the minor revision- incremented at any release point, and is a drop in replacement over the original code,
 with an update script
 Third number is the micro revision, incremented during Alpha, Beta and RC release points and patch releases.
-Finally, each file will have its own versioning information found in the $Id$ Subversion property.
+Finally, each file will have its own versioning information found in the "Id" Subversion property.
 >>EOF
